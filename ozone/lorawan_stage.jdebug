@@ -1,0 +1,10 @@
+
+void OnProjectLoad (void) {
+    Project.SetDevice ("MKL25Z128xxx4");
+    Project.SetHostIF ("USB", "");
+    Project.SetTargetIF ("SWD");
+    Project.SetTIFSpeed ("2 MHz");
+    Project.AddSvdFile ("$(InstallDir)/Config/CPU/Cortex-M0.svd");
+    Project.AddSvdFile (".\MKL25Z4.xml");
+    File.Open ("..\build\lorawan_stage.elf");
+}
