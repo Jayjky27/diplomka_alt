@@ -87,6 +87,9 @@
 							</tool>
 						</toolChain>
 					</folderInfo>
+					<fileInfo id="cdt.managedbuild.config.gnu.cross.exe.debug.1570112656.120675211" name="utilities.c" rcbsApplicability="disable" resourcePath="src/_loramac-node/_bind/utilities.c" toolsToInvoke="cdt.managedbuild.tool.gnu.cross.c.compiler.1154898902.172443126">
+						<tool id="cdt.managedbuild.tool.gnu.cross.c.compiler.1154898902.172443126" name="Cross GCC Compiler" superClass="cdt.managedbuild.tool.gnu.cross.c.compiler.1154898902"/>
+					</fileInfo>
 					<sourceEntries>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
 					</sourceEntries>

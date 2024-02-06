@@ -28,6 +28,8 @@
 
 #include "surv.h"
 
+#include "main_alt.h"
+
 #define HEX_SW_TEST_COM_VAL				0x0u
 #define HEX_SW_TEST_ACC_VAL				0x1u
 #define HEX_SW_TEST_EEPROM_VAL			0x2u
@@ -41,6 +43,7 @@
 #define HEX_SW_TEST_LORA_VAL			0x8u
 #define HEX_SW_TEST_LORA_APB_VAL		0x9u
 #define HEX_SW_TEST_LORA_OTAA_VAL		0xAu
+#define HEX_SW_TEST_MAIN_CODE			0xBu
 
 #define HEX_SW_SURV_VAL					0xFu
 
@@ -89,6 +92,9 @@ int main(void)
 		break;
 	case HEX_SW_SURV_VAL:
 		surv();
+		break;
+	case HEX_SW_TEST_MAIN_CODE:
+		alt_main();
 		break;
 	default:
 		assert(0);
