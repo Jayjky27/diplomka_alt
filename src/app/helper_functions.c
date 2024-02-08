@@ -223,5 +223,22 @@ int custom_rand(void) {
     return (seed / 65536) % 32768;
 }
 
+float getTemp(void)
+{
+	uint32_t adcValue = adc_read(ADC_MODE_16BIT_SE, 26); // 16- single-ended measurement of temperature
+
+	float voltageValue = adcValue*3300/65536;
+	float m = 0.0;
+
+	if (voltageValue >= VTEMP25) {
+		m = 1.646; // Cold Slope
+	}else {
+		m = 1.769; // Hot Slope
+	}
+
+	float temp = 25 - ((voltageValue - VTEMP25)/m);
+
+	return temp;
+}
 
 

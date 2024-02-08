@@ -174,7 +174,7 @@ void alt_main(void)
 	initPins();
 	initLPTMR();
 
-	float Qtable[NUM_STATES][NUM_ACTIONS], reward = 0.0;
+	float Qtable[NUM_STATES][NUM_ACTIONS], reward = 0.0, tempValue = 0.0;
 	uint16_t valueADC = 0, valueLPTMR = 0;
 	int action = 0, currentState = 0, previousState = 0, measureFlag = 0, epochsCnt = 1, epsilon = 90;
 	init_Qtable(Qtable);
@@ -276,6 +276,7 @@ void alt_main(void)
 				break;
 			case 1:
 				/* MEAS FUNCTION */
+				tempValue = getTemp();
 				measureFlag = 1;
 				break;
 			case 2:
@@ -290,11 +291,13 @@ void alt_main(void)
 					delay(2000000); // for testing reasons
 				} else {
 					/* MEAS FUNCTION */
+					tempValue = getTemp();
 					measureFlag = 1;
 				}
 				break;
 			case 3:
 				/* MEAS FUNCTION */
+				tempValue = getTemp();
 				/* SEND FUNCTION */
 				if(!tx_busy && !LmHandlerIsBusy()) {
 					assert(LmHandlerSend(&tx_desc, LORAMAC_HANDLER_UNCONFIRMED_MSG) == LORAMAC_HANDLER_SUCCESS);
