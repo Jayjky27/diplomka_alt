@@ -38,6 +38,14 @@ void setVLPRmode(void)
 	SMC->PMCTRL |= SMC_PMCTRL_RUNM(2); 		//Entry VLPR mode
 }
 
+void setVLPS(void)
+{
+	SMC->PMCTRL |= SMC_PMCTRL_STOPM(0b01);
+	if (SMC->PMSTAT == 0x04) {
+		__asm("WFI");
+	}
+}
+
 void __attribute__ ((interrupt)) LPTMR0_IRQHandler(void){
 	LPTMR0->CSR = LPTMR_CSR_TCF_MASK;	//Clear the LPTMR flag (w1c)
 	GPIOB->PCOR |= (1 << 18);			// Turn ON LED

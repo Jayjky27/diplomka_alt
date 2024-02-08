@@ -25,6 +25,7 @@
 
 void switchtoBLPI(void);
 void setVLPRmode(void);
+void setVLPS(void);
 void __attribute__ ((interrupt)) LPTMR0_IRQHandler(void);
 void initLPTMR(void);
 void startLPTMR(uint16_t x);

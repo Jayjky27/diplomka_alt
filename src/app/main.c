@@ -75,9 +75,9 @@ int main(void)
 	case HEX_SW_TEST_SYSTIME_VAL:
 		test_systime();
 		break;
-	case HEX_SW_TEST_TIMER_VAL:
+	/*case HEX_SW_TEST_TIMER_VAL:
 		test_timer();
-		break;
+		break;*/
 	case HEX_SW_TEST_RADIO_VAL:
 		test_radio();
 		break;

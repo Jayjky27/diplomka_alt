@@ -1,14 +1,30 @@
 
 
-OpenDocument="main_alt.c", FilePath="D:/skola/eclipse_workspace_alt/lorawan_stage/src/app/main_alt.c", Line=59
-OpenDocument="main.c", FilePath="D:/skola/eclipse_workspace_alt/lorawan_stage/src/app/main.c", Line=26
+
+Breakpoint=D:/skola/eclipse_workspace_alt/lorawan_stage/src/app/main_alt.c:274, State=BP_STATE_ON
+Breakpoint=D:/skola/eclipse_workspace_alt/lorawan_stage/src/app/main_alt.c:315:12, State=BP_STATE_ON
+Breakpoint=D:/skola/eclipse_workspace_alt/lorawan_stage/src/app/main_alt.c:348, State=BP_STATE_ON
+OpenDocument="delay.s", FilePath="D:/skola/eclipse_workspace_alt/lorawan_stage/src/_agn/delay.s", Line=0
+OpenDocument="main_alt.c", FilePath="D:/skola/eclipse_workspace_alt/lorawan_stage/src/app/main_alt.c", Line=302
+OpenDocument="main.c", FilePath="D:/skola/eclipse_workspace_alt/lorawan_stage/src/app/main.c", Line=38
+OpenDocument="utilities.c", FilePath="D:/skola/eclipse_workspace_alt/lorawan_stage/src/_loramac-node/_bind/utilities.c", Line=34
+OpenDocument="muldf3.c", FilePath="/home/work/ct-ng_build/.build/HOST-x86_64-w64-mingw32/arm-none-eabi/src/gcc/libgcc/soft-fp/muldf3.c", Line=0
+OpenDocument="floatsidf.c", FilePath="/home/work/ct-ng_build/.build/HOST-x86_64-w64-mingw32/arm-none-eabi/src/gcc/libgcc/soft-fp/floatsidf.c", Line=0
+OpenDocument="helper_functions.c", FilePath="D:/skola/eclipse_workspace_alt/lorawan_stage/src/app/helper_functions.c", Line=34
+OpenDocument="LoRaMac.c", FilePath="D:/skola/eclipse_workspace_alt/lorawan_stage/src/_loramac-node/mac/LoRaMac.c", Line=3475
+OpenDocument="crsec.s", FilePath="D:/skola/eclipse_workspace_alt/lorawan_stage/src/_agn/crsec.s", Line=22
+OpenDocument="radio.c", FilePath="D:/skola/eclipse_workspace_alt/lorawan_stage/src/_loramac-node/radio/radio.c", Line=1336
+OpenDocument="LmHandler.c", FilePath="D:/skola/eclipse_workspace_alt/lorawan_stage/src/_loramac-node/lmhandler/LmHandler.c", Line=440
+OpenDocument="test_lora.c", FilePath="D:/skola/eclipse_workspace_alt/lorawan_stage/src/app/test_lora.c", Line=176
+OpenDocument="startup.s", FilePath="D:/skola/eclipse_workspace_alt/lorawan_stage/src/_agn/startup.s", Line=12
+OpenDocument="lib1funcs.S", FilePath="/home/work/ct-ng_build/.build/HOST-x86_64-w64-mingw32/arm-none-eabi/src/gcc/libgcc/config/arm/lib1funcs.S", Line=0
 OpenToolbar="Debug", Floating=0, x=0, y=0
-OpenWindow="Registers 1", DockArea=RIGHT, x=0, y=2, w=516, h=84, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0, FilteredItems=[], RefreshRate=1
-OpenWindow="Disassembly", DockArea=RIGHT, x=0, y=0, w=516, h=367, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0
+OpenWindow="Registers 1", DockArea=RIGHT, x=0, y=2, w=516, h=123, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0, FilteredItems=[], RefreshRate=1
+OpenWindow="Disassembly", DockArea=RIGHT, x=0, y=0, w=516, h=143, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0
 OpenWindow="Memory 1", DockArea=BOTTOM, x=2, y=0, w=659, h=203, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0, EditorAddress=0x20000774
-OpenWindow="Local Data", DockArea=RIGHT, x=0, y=1, w=516, h=304, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0
-OpenWindow="Watched Data 1", DockArea=LEFT, x=0, y=0, w=367, h=470, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0
-OpenWindow="Functions", DockArea=LEFT, x=0, y=1, w=367, h=286, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0
+OpenWindow="Local Data", DockArea=RIGHT, x=0, y=1, w=516, h=489, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0
+OpenWindow="Watched Data 1", DockArea=LEFT, x=0, y=0, w=367, h=454, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0
+OpenWindow="Functions", DockArea=LEFT, x=0, y=1, w=367, h=302, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0
 OpenWindow="Data Sampling", DockArea=BOTTOM, x=0, y=0, w=598, h=203, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0, VisibleTab=0, UniformSampleSpacing=0
 OpenWindow="Console", DockArea=BOTTOM, x=1, y=0, w=661, h=203, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0
 SmartViewPlugin="", Page="", Toolbar="Hidden", Window="SmartView 1"
@@ -17,7 +33,7 @@ TableHeader="Functions", SortCol="Name", SortOrder="ASCENDING", VisibleCols=["Na
 TableHeader="Data Sampling Table", SortCol="None", SortOrder="ASCENDING", VisibleCols=["Index";"Time"], ColWidths=[100;100]
 TableHeader="Data Sampling Setup", SortCol="Expression", SortOrder="ASCENDING", VisibleCols=["Expression";"Type";"Value";"Min";"Max";"Average";"# Changes";"Min. Change";"Max. Change"], ColWidths=[100;100;100;100;100;100;100;100;100]
 TableHeader="Power Sampling", SortCol="None", SortOrder="ASCENDING", VisibleCols=["Index";"Time";"Ch 0"], ColWidths=[100;100;100]
-TableHeader="Registers 1", SortCol="Name", SortOrder="ASCENDING", VisibleCols=["Name";"Value";"Description"], ColWidths=[135;222;159]
+TableHeader="Registers 1", SortCol="Name", SortOrder="ASCENDING", VisibleCols=["Name";"Value";"Description"], ColWidths=[135;222;224]
 TableHeader="Watched Data 1", SortCol="Expression", SortOrder="ASCENDING", VisibleCols=["Expression";"Value";"Location";"Refresh"], ColWidths=[100;100;100;100]
 TableHeader="RegisterSelectionDialog", SortCol="None", SortOrder="ASCENDING", VisibleCols=[], ColWidths=[]
 TableHeader="TargetExceptionDialog", SortCol="Name", SortOrder="ASCENDING", VisibleCols=["Name";"Value";"Address";"Description"], ColWidths=[26;26;26;31]
