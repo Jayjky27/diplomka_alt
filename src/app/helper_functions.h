@@ -33,7 +33,7 @@ void __attribute__ ((interrupt)) LPTMR0_IRQHandler(void);
 void initLPTMR(void);
 void startLPTMR(uint16_t x);
 int initADC(void);
-uint16_t adcRead();
+uint16_t adcRead(void);
 void initPins(void);
 void init_Qtable(float Qtable[NUM_STATES][NUM_ACTIONS]);
 int32_t selectAction(float Qtable[NUM_STATES][NUM_ACTIONS], int state, int currentEpoch, int currentEpsilon);

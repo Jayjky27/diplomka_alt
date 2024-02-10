@@ -123,7 +123,7 @@ int initADC(void)
 	return 0;
 }
 
-uint16_t adcRead()
+uint16_t adcRead(void)
 {
 	//ADC0->SC1[0] |= ADC_SC1_AIEN_MASK;	// Interrupt enable
 	//ADC0->SC1[0] &= ~ADC_SC1_DIFF_MASK;	// Set single-ended conversion mode
@@ -217,28 +217,30 @@ void updateQ(float Qtable[NUM_STATES][NUM_ACTIONS], int state, int action, float
     Qtable[state][action] = Qtable[state][action] + ALPHA * (reward + GAMMA*Qtable[nextState][maxValue] - Qtable[state][action]);
 }
 
-int custom_rand(void) {
+/*int custom_rand(void) {
     static uint32_t seed = 42;
 	seed = seed * 1103515245 + 12345;
     return (seed / 65536) % 32768;
-}
+}*/
 
 float getTemp(void)
 {
 	uint32_t adcValue = adc_read(ADC_MODE_16BIT_SE, 26); // 16- single-ended measurement of temperature
 
-	float voltageValue = adcValue*3300/65536;
+	float voltageValue = adcValue*3300/65536; // in miliVolts
 	float m = 0.0;
-
+	//NewValue = (((OldValue - OldMin) * NewRange) / OldRange) + NewMin
+	voltageValue = (((voltageValue)*3000)/3300);
 	if (voltageValue >= VTEMP25) {
 		m = 1.646; // Cold Slope
 	}else {
 		m = 1.769; // Hot Slope
 	}
 
-	float temp = 25 - ((voltageValue - VTEMP25)/m);
+	float temp = 25 - (((voltageValue/1000) - (VTEMP25/1000))/m);
 
 	return temp;
 }
+
 
 
