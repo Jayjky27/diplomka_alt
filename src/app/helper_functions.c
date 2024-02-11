@@ -217,11 +217,11 @@ void updateQ(float Qtable[NUM_STATES][NUM_ACTIONS], int state, int action, float
     Qtable[state][action] = Qtable[state][action] + ALPHA * (reward + GAMMA*Qtable[nextState][maxValue] - Qtable[state][action]);
 }
 
-int custom_rand(void) {
+/*int custom_rand(void) {
     static uint32_t seed = 42;
 	seed = seed * 1103515245 + 12345;
     return (seed / 65536) % 32768;
-}
+}*/
 
 
 
