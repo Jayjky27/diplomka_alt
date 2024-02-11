@@ -242,5 +242,13 @@ float getTemp(void)
 	return temp;
 }
 
+void dataPrep(uint8_t* buffer, float value)
+{
+	uint32_t uTempValue = (uint32_t)(value * 10);
 
+	buffer[0] = (uint8_t)uTempValue;
+	buffer[1] = (uint8_t)(uTempValue >> 8);
+	buffer[2] = (uint8_t)(uTempValue >> 16);
+	buffer[3] = (uint8_t)(uTempValue >> 24);
+}
 

@@ -40,6 +40,7 @@ int32_t selectAction(float Qtable[NUM_STATES][NUM_ACTIONS], int state, int curre
 void updateQ(float Q[NUM_STATES][NUM_ACTIONS], int state, int action, float reward, int nextState);
 int custom_rand(void);
 float getTemp(void);
+void dataPrep(uint8_t* buffer, float value);
 
 
 #endif /* SRC_APP_HELPER_FUNCTIONS_H_ */

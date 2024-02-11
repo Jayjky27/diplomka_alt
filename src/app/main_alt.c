@@ -281,6 +281,8 @@ void alt_main(void)
 				break;
 			case 2:
 				if (measureFlag) {
+					/* Data preparation for sending */
+					dataPrep(tx_buf, tempValue);
 					/* SEND FUNCTION */
 					if(!tx_busy && !LmHandlerIsBusy()) {
 						assert(LmHandlerSend(&tx_desc, LORAMAC_HANDLER_UNCONFIRMED_MSG) == LORAMAC_HANDLER_SUCCESS);
@@ -298,6 +300,8 @@ void alt_main(void)
 			case 3:
 				/* MEAS FUNCTION */
 				tempValue = getTemp();
+				/* Data preparation for sending */
+				dataPrep(tx_buf, tempValue);
 				/* SEND FUNCTION */
 				if(!tx_busy && !LmHandlerIsBusy()) {
 					assert(LmHandlerSend(&tx_desc, LORAMAC_HANDLER_UNCONFIRMED_MSG) == LORAMAC_HANDLER_SUCCESS);
