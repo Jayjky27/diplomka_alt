@@ -19,6 +19,7 @@
 #include "systime.h"
 #include "timer.h"
 
+
 /* LORAWAN DEFINES */
 #define TX_PAYLOAD_SIZE			32u
 #define RX_TRACE_LEN			8u
@@ -302,7 +303,10 @@ void alt_main(void)
 					measureFlag = 0;
 				}
 				while(tx_busy);
-				delay(2000000); // for testing reasons
+				for(int i = 0; i<8; i++){
+					setVLPS();
+					LmHandlerProcess();
+				}
 				/* CONSULTATION - possible addition of ADC read to detect energy status */
 				measureFlag = 0;
 				break;
