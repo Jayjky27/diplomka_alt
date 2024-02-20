@@ -61,15 +61,6 @@ void initLPTMR(void)
 	NVIC_ClearPendingIRQ(LPTMR0_IRQn);
 	NVIC_SetPriority(LPTMR0_IRQn, 2);
 	NVIC_EnableIRQ(LPTMR0_IRQn);
-	/*	Kód pro nastavení hodnoty čítače (hodnota bude volena MCU jako výsledek akce, kterou zvolí)*/
-	//LPTMR0->CMR |= LPTMR_CMR_COMPARE(x);
-	//LPTMR0->CMR = x;
-	//LPTMR0->CSR |= LPTMR_CSR_TIE_MASK | LPTMR_CSR_TEN_MASK; // Interrupt and LPTMR enable
-	//LPTMR0->CSR |= LPTMR_CSR_TEN_MASK;
-	//while (!(LPTMR0->CSR & LPTMR_CSR_TCF_MASK));
-
-	/* Disable counter and Clear Timer Compare Flag */
-	//LPTMR0->CSR &= ~LPTMR_CSR_TEN_MASK;
 }
 
 void startLPTMR(uint16_t x)
@@ -92,11 +83,8 @@ int initADC(void)
 	ADC0->CFG1 |= ADC_CFG1_MODE(3);		// Set 16-bit conversion
 
 	ADC0->SC2 &= ~(ADC_SC2_ADTRG_MASK); // Set SW trigger
-	//ADC0->SC2 |= ADC_SC2_DMAEN_MASK; 	// DMA enable
 	ADC0->SC2 |= ADC_SC2_REFSEL(0);		// Select voltage reference 0= default voltage reference pair
 
-	//ADC0->SC3 |= ADC_SC3_AVGE_MASK;	// HW average function enable
-	//ADC0->SC3 |= ADC_SC3_AVGS(1);		// 8 samples for HW average function
 	ADC0->SC3 |= ADC_SC3_CAL_MASK;		// Start calibration
 
 	while(ADC0->SC3 & ADC_SC3_CAL_MASK); // wait for calibration to end
@@ -125,10 +113,7 @@ int initADC(void)
 
 uint16_t adcRead(void)
 {
-	//ADC0->SC1[0] |= ADC_SC1_AIEN_MASK;	// Interrupt enable
-	//ADC0->SC1[0] &= ~ADC_SC1_DIFF_MASK;	// Set single-ended conversion mode
 	ADC0->SC1[0] = ADC_SC1_ADCH(4);	// Set input channel 0
-	//while(ADC0->SC2 & ADC_SC2_ADACT_MASK); // Run until conversion is complete
 	while(!(ADC0->SC1[0] & ADC_SC1_COCO_MASK));
 	return ADC0->R[0];
 }
@@ -150,10 +135,6 @@ void initPins(void)
 	GPIOA->PDDR |= (1 << 13);
 	GPIOB->PDDR |= (1 << 9);
 	GPIOB->PDDR |= (1 << 1);
-	/* end of testing section */
-
-	/* Testing ... will be deleted */
-	/* end of testing section */
 
 	GPIOA->PDDR |= (1 << 12); 				// Output pin
 	GPIOB->PDDR |= (1 << 19);    			// Output pin
@@ -216,12 +197,6 @@ void updateQ(float Qtable[NUM_STATES][NUM_ACTIONS], int state, int action, float
     }
     Qtable[state][action] = Qtable[state][action] + ALPHA * (reward + GAMMA*Qtable[nextState][maxValue] - Qtable[state][action]);
 }
-
-/*int custom_rand(void) {
-    static uint32_t seed = 42;
-	seed = seed * 1103515245 + 12345;
-    return (seed / 65536) % 32768;
-}*/
 
 float getTemp(void)
 {
