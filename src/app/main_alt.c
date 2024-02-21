@@ -166,6 +166,8 @@ static void systime_upd_cb(bool sync, int32_t corr)
 	__BKPT();
 }
 
+int lptmrIntFlag;
+
 void alt_main(void)
 {
 	/* SYSTEM INITIALIZATION + VARIABLE DECLARATION */
@@ -310,10 +312,10 @@ void alt_main(void)
 					measureFlag = 0;
 				}
 				while(tx_busy);
-				for(int i = 0; i<8; i++){
+				/*for(int i = 0; i<8; i++){
 					setVLPS();
 					LmHandlerProcess();
-				}
+				}*/
 				/* CONSULTATION - possible addition of ADC read to detect energy status */
 				measureFlag = 0;
 				break;
@@ -355,7 +357,12 @@ void alt_main(void)
 		/* STARTING LPTMR + ENTERING SLEEP MODE */
 		startLPTMR(valueLPTMR);
 		LED_OFF(LED_D1);
-		setVLPS();
+		///setVLPS();
+		lptmrIntFlag = 0;
+		while(1){
+			__asm("WFI");
+			if(lptmrIntFlag) break;
+		}
 		previousState = currentState;
 
 	}

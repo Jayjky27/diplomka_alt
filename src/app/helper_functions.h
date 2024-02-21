@@ -26,6 +26,8 @@
 #define EPOCHS			10 // Number of epochs
 #define VTEMP25			701.2
 
+extern int lptmrIntFlag;
+
 void switchtoBLPI(void);
 void setVLPRmode(void);
 void setVLPS(void);

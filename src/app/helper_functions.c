@@ -48,6 +48,7 @@ void setVLPS(void)
 
 void __attribute__ ((interrupt)) LPTMR0_IRQHandler(void){
 	LPTMR0->CSR = LPTMR_CSR_TCF_MASK;	//Clear the LPTMR flag (w1c)
+	lptmrIntFlag = 1;
 	GPIOB->PCOR |= (1 << 18);			// Turn ON LED
 }
 
