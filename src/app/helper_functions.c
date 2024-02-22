@@ -49,7 +49,7 @@ void setVLPS(void)
 void __attribute__ ((interrupt)) LPTMR0_IRQHandler(void){
 	LPTMR0->CSR = LPTMR_CSR_TCF_MASK;	//Clear the LPTMR flag (w1c)
 	lptmrIntFlag = 1;
-	GPIOB->PCOR |= (1 << 18);			// Turn ON LED
+	LPTMR0->CSR &= ~LPTMR_CSR_TEN_MASK;
 }
 
 void initLPTMR(void)
@@ -110,6 +110,11 @@ int initADC(void)
 	calib |= 0x8000; // Set MSB
 	ADC0->MG |= calib;
 	return 0;
+}
+
+void deInitADC(void)
+{
+	ADC0->SC1[0] = ADC_SC1_ADCH(0x1F); // Module disabled
 }
 
 uint16_t adcRead(void)

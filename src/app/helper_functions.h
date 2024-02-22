@@ -35,6 +35,7 @@ void __attribute__ ((interrupt)) LPTMR0_IRQHandler(void);
 void initLPTMR(void);
 void startLPTMR(uint16_t x);
 int initADC(void);
+void deInitADC(void);
 uint16_t adcRead(void);
 void initPins(void);
 void init_Qtable(float Qtable[NUM_STATES][NUM_ACTIONS]);

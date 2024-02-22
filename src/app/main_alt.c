@@ -212,7 +212,7 @@ void alt_main(void)
 	SX126xPwrOn(1u);
 
 	assert(LmHandlerInit(&lmh_cb, &lmh_prm) == LORAMAC_HANDLER_SUCCESS);
-		assert(LmHandlerSetSystemMaxRxError(200ul) == LORAMAC_HANDLER_SUCCESS);
+	assert(LmHandlerSetSystemMaxRxError(200ul) == LORAMAC_HANDLER_SUCCESS);
 
 	#if 1
 		mib_req.Type = MIB_CHANNELS_DEFAULT_TX_POWER;
@@ -246,14 +246,23 @@ void alt_main(void)
 		chan_prm = (ChannelParams_t) {868800000ul, 0ul, {(DR_7 << 4u) | DR_7}, 1u};
 		assert(LoRaMacChannelAdd(3u, chan_prm) == LORAMAC_STATUS_OK);
 	#endif
-
+		//static LoRaMacPrimitives_t LoRaMacPrimitives;
 		LmHandlerJoin();
 
 	/* MAIN LOOP */
 	while(1) {
+
+		// DEINITIALIZATION OF LORAMAC
+		/*if(epochsCnt > 1){
+			LoRaMacInitialization( &LoRaMacPrimitives, &lmh_cb, lmh_prm.Region);
+			//assert(LmHandlerInit(&lmh_cb, &lmh_prm) == LORAMAC_HANDLER_SUCCESS);
+			LmHandlerJoin();
+		}*/
+
 		LmHandlerProcess();
 
 		/* DETERMINATION OF ENERGY STATUS */
+		assert(!initADC());
 		valueADC = adcRead();
 
 		if(valueADC < 16000){
@@ -306,17 +315,16 @@ void alt_main(void)
 				/* Data preparation for sending */
 				dataPrep(tx_buf, tempValue);
 				/* SEND FUNCTION */
+
 				if(!tx_busy && !LmHandlerIsBusy()) {
 					assert(LmHandlerSend(&tx_desc, LORAMAC_HANDLER_UNCONFIRMED_MSG) == LORAMAC_HANDLER_SUCCESS);
 					LED_ON(LED_D1);
 					measureFlag = 0;
 				}
 				while(tx_busy);
-				/*for(int i = 0; i<8; i++){
-					setVLPS();
+				while(LmHandlerIsBusy()){
 					LmHandlerProcess();
-				}*/
-				/* CONSULTATION - possible addition of ADC read to detect energy status */
+				}
 				measureFlag = 0;
 				break;
 			default:
@@ -355,10 +363,17 @@ void alt_main(void)
 		}
 
 		/* STARTING LPTMR + ENTERING SLEEP MODE */
-		startLPTMR(valueLPTMR);
-		LED_OFF(LED_D1);
-		///setVLPS();
+		//assert(!(LoRaMacDeInitialization()));
+		//SX126xPwrOff();
+
+		// Deinit of ADC
+		deInitADC();
+
+		// Init and start of LPTMR;
 		lptmrIntFlag = 0;
+		initLPTMR();
+		startLPTMR(valueLPTMR);
+
 		while(1){
 			__asm("WFI");
 			if(lptmrIntFlag) break;
