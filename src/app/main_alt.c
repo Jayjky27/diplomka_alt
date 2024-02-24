@@ -128,7 +128,6 @@ static void join_req_cb(LmHandlerJoinParams_t *prm)
 static void tx_cb(LmHandlerTxParams_t *prm)
 {
 	//assert(prm->Status == LORAMAC_EVENT_INFO_STATUS_OK);
-	LED_OFF(LED_D1);
 	tx_busy = 0u;
 }
 
@@ -142,7 +141,6 @@ static void rx_cb(LmHandlerAppData_t *rx_data, LmHandlerRxParams_t *prm)
 		rx_desc_ind++;
 	}
 
-	LED_ON(LED_D2);
 }
 
 static void class_change_cb(DeviceClass_t class)
@@ -210,7 +208,6 @@ void alt_main(void)
 	SysTimeGlobalInit();
 	SX126xPwrOn(1u);
 
-	__BKPT();
 	assert(LmHandlerInit(&lmh_cb, &lmh_prm) == LORAMAC_HANDLER_SUCCESS);
 	assert(LmHandlerSetSystemMaxRxError(200ul) == LORAMAC_HANDLER_SUCCESS);
 
