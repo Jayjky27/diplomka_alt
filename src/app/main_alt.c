@@ -166,12 +166,14 @@ static void systime_upd_cb(bool sync, int32_t corr)
 }
 
 int lptmrIntFlag;
+int btnIntFlag;
 
 void alt_main(void)
 {
-	/* SYSTEM INITIALIZATION + VARIABLE DECLARATION */
-	/*switchtoBLPI();
-	setVLPRmode();*/
+	/* INIT SECTION */
+	led_init();
+	initButton();
+
 	assert(!initADC());
 	initPins();
 	initLPTMR();
@@ -201,8 +203,6 @@ void alt_main(void)
 	tx_buf[TX_PAYLOAD_SIZE - 1u] = 0xFFu;
 
 	/* LORAWAN INIT FUNCTIONS */
-	led_init();
-
 	SX126xGlobalInit();
 	TimerGlobalInit();
 	SysTimeGlobalInit();
@@ -246,136 +246,155 @@ void alt_main(void)
 		//static LoRaMacPrimitives_t LoRaMacPrimitives;
 		LmHandlerJoin();
 
-	/* MAIN LOOP */
-	while(1) {
+	while(1){
+		if(btnIntFlag){
 
-		// DEINITIALIZATION OF LORAMAC
-		if(epochsCnt > 1){
-			lora_init_complet(&lmh_cb, &lmh_prm, mib_req, chan_prm);
-		}
-		LmHandlerProcess();
+			/* MAIN LOOP */
+			// DEINITIALIZATION OF LORAMAC
+			if(epochsCnt > 1){
+				lora_init_complet(&lmh_cb, &lmh_prm, mib_req, chan_prm);
+			}
+			LmHandlerProcess();
 
-		/* DETERMINATION OF ENERGY STATUS */
-		assert(!initADC());
-		valueADC = adcRead();
+			/* DETERMINATION OF ENERGY STATUS */
+			assert(!initADC());
+			valueADC = adcRead();
 
-		if(valueADC < 16000){
-			currentState = 0;
-		}else if(valueADC >= 48000){
-			currentState = 3;
-		}else if((valueADC >= 16000) && (valueADC < 32000)){
-			currentState = 1;
-		}else{
-			currentState = 2;
-		}
+			if(valueADC < 16000){
+				currentState = 0;
+			}else if(valueADC >= 48000){
+				currentState = 3;
+			}else if((valueADC >= 16000) && (valueADC < 32000)){
+				currentState = 1;
+			}else{
+				currentState = 2;
+			}
 
-		/* CALCULATION OF THE REWARD + UPDATING THE VALUES IN THE Q-TABLE */
-		if (epochsCnt > 1) {
-			reward = STATE_WEIGHT*(currentState - previousState) - ACTION_WEIGHT*(action + 1);
-			updateQ(Qtable, previousState, action, reward, currentState);
-		}
-
-
-		/* MEASUREMENT + COMMUNICATION */
-		switch(currentState) {
-			case 0:
-				break;
-			case 1:
-				/* MEAS FUNCTION */
-				tempValue = getTemp();
-				measureFlag = 1;
-				break;
-			case 2:
-				if (measureFlag) {
+			/* CALCULATION OF THE REWARD + UPDATING THE VALUES IN THE Q-TABLE */
+			if (epochsCnt > 1) {
+				reward = STATE_WEIGHT*(currentState - previousState) - ACTION_WEIGHT*(action + 1);
+				updateQ(Qtable, previousState, action, reward, currentState);
+			}
+			/* MEASUREMENT + COMMUNICATION */
+			currentState = 0; // FOR TESTING TO BE DELETED !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+			switch(currentState) {
+				case 0:
+					/* MEAS FUNCTION */
+					tempValue = getTemp();
 					/* Data preparation for sending */
 					dataPrep(tx_buf, tempValue);
 					/* SEND FUNCTION */
+
 					if(!tx_busy && !LmHandlerIsBusy()) {
 						assert(LmHandlerSend(&tx_desc, LORAMAC_HANDLER_UNCONFIRMED_MSG) == LORAMAC_HANDLER_SUCCESS);
 						//LED_ON(LED_D1);
 						measureFlag = 0;
 					}
 					while(tx_busy);
-					delay(2000000); // for testing reasons
-				} else {
+					while(LmHandlerIsBusy()){
+						LmHandlerProcess();
+					}
+					measureFlag = 0;
+					break;
+				case 1:
 					/* MEAS FUNCTION */
 					tempValue = getTemp();
 					measureFlag = 1;
-				}
-				break;
-			case 3:
-				/* MEAS FUNCTION */
-				tempValue = getTemp();
-				/* Data preparation for sending */
-				dataPrep(tx_buf, tempValue);
-				/* SEND FUNCTION */
+					break;
+				case 2:
+					if (measureFlag) {
+						/* Data preparation for sending */
+						dataPrep(tx_buf, tempValue);
+						/* SEND FUNCTION */
+						if(!tx_busy && !LmHandlerIsBusy()) {
+							assert(LmHandlerSend(&tx_desc, LORAMAC_HANDLER_UNCONFIRMED_MSG) == LORAMAC_HANDLER_SUCCESS);
+							//LED_ON(LED_D1);
+							measureFlag = 0;
+						}
+						while(tx_busy);
+						delay(2000000); // for testing reasons
+					} else {
+						/* MEAS FUNCTION */
+						tempValue = getTemp();
+						measureFlag = 1;
+					}
+					break;
+				case 3:
+					/* MEAS FUNCTION */
+					tempValue = getTemp();
+					/* Data preparation for sending */
+					dataPrep(tx_buf, tempValue);
+					/* SEND FUNCTION */
 
-				if(!tx_busy && !LmHandlerIsBusy()) {
-					assert(LmHandlerSend(&tx_desc, LORAMAC_HANDLER_UNCONFIRMED_MSG) == LORAMAC_HANDLER_SUCCESS);
-					//LED_ON(LED_D1);
+					if(!tx_busy && !LmHandlerIsBusy()) {
+						assert(LmHandlerSend(&tx_desc, LORAMAC_HANDLER_UNCONFIRMED_MSG) == LORAMAC_HANDLER_SUCCESS);
+						//LED_ON(LED_D1);
+						measureFlag = 0;
+					}
+					while(tx_busy);
+					while(LmHandlerIsBusy()){
+						LmHandlerProcess();
+					}
 					measureFlag = 0;
-				}
-				while(tx_busy);
-				while(LmHandlerIsBusy()){
-					LmHandlerProcess();
-				}
-				measureFlag = 0;
-				break;
-			default:
-				assert(0);
-				break;
+					break;
+				default:
+					assert(0);
+					break;
+			}
+
+			/* SELECTION OF ACTION */
+			action = selectAction(Qtable, currentState, epochsCnt, epsilon);
+
+			switch(action){
+				case 0:
+					valueLPTMR = 6000;
+					break;
+
+				case 1:
+					valueLPTMR = 4000;
+					break;
+
+				case 2:
+					valueLPTMR = 2000;
+					break;
+
+				case 3:
+					valueLPTMR = 1000;
+					break;
+				default:
+					assert(0);
+					break;
+			}
+
+			/* OPERATIONS NEEDED FOR TRAINING */
+			if(epochsCnt <= EPOCHS){
+				epsilon -= 8;
+				epochsCnt++;
+			}
+
+			/* DEINITIALIZATION OF MODULES */
+			TimerDeInitAll();
+			assert(!(LoRaMacDeInitialization()));
+			SX126xPwrOff();
+			// Deinit of ADC
+			deInitADC();
+
+			/* STARTING LPTMR + ENTERING SLEEP MODE */
+			lptmrIntFlag = 0;
+			initLPTMR();
+			startLPTMR(valueLPTMR);
+			setVLPS();
+
+			while(1){
+				__asm("WFI");
+				if(lptmrIntFlag) break;
+			}
+			previousState = currentState;
+			btnIntFlag = 0;
 		}
-
-		/* SELECTION OF ACTION */
-		action = selectAction(Qtable, currentState, epochsCnt, epsilon);
-
-		switch(action){
-			case 0:
-				valueLPTMR = 6000;
-				break;
-
-			case 1:
-				valueLPTMR = 4000;
-				break;
-
-			case 2:
-				valueLPTMR = 2000;
-				break;
-
-			case 3:
-				valueLPTMR = 1000;
-				break;
-			default:
-				assert(0);
-				break;
-		}
-
-		/* OPERATIONS NEEDED FOR TRAINING */
-		if(epochsCnt <= EPOCHS){
-			epsilon -= 8;
-			epochsCnt++;
-		}
-
-		/* DEINITIALIZATION OF MODULES */
-		TimerDeInitAll();
-		assert(!(LoRaMacDeInitialization()));
-		SX126xPwrOff();
-		// Deinit of ADC
-		deInitADC();
-
-		/* STARTING LPTMR + ENTERING SLEEP MODE */
-		lptmrIntFlag = 0;
-		initLPTMR();
-		startLPTMR(valueLPTMR);
-
-		while(1){
-			__asm("WFI");
-			if(lptmrIntFlag) break;
-		}
-		previousState = currentState;
-
 	}
 }
+
 
 void lora_init_complet(LmHandlerCallbacks_t *lmh_cb, LmHandlerParams_t *lmh_prm, MibRequestConfirm_t mib_req, ChannelParams_t chan_prm)
 {

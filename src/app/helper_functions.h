@@ -27,6 +27,7 @@
 #define VTEMP25			701.2
 
 extern int lptmrIntFlag;
+extern int btnIntFlag;
 
 void switchtoBLPI(void);
 void setVLPRmode(void);
@@ -44,6 +45,8 @@ void updateQ(float Q[NUM_STATES][NUM_ACTIONS], int state, int action, float rewa
 int custom_rand(void);
 float getTemp(void);
 void dataPrep(uint8_t* buffer, float value);
+void initButton(void);
+void __attribute__ ((interrupt)) PORTD_IRQHandler(void);
 
 
 #endif /* SRC_APP_HELPER_FUNCTIONS_H_ */

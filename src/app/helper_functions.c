@@ -40,10 +40,8 @@ void setVLPRmode(void)
 
 void setVLPS(void)
 {
-	SMC->PMCTRL |= SMC_PMCTRL_STOPM(0b01);
-	if (SMC->PMSTAT == 0x04) {
-		__asm("WFI");
-	}
+	SMC->PMCTRL |= SMC_PMCTRL_STOPM(0b10);
+	SCB->SCR |= SCB_SCR_SLEEPDEEP_Msk;
 }
 
 void __attribute__ ((interrupt)) LPTMR0_IRQHandler(void){
@@ -130,6 +128,7 @@ void initPins(void)
 	SIM->SCGC5 |= SIM_SCGC5_PORTB_MASK;		// enable clock
 
 	PORTA->PCR[12] |= (PORT_PCR_MUX(1));	// MUX = alt 1 -> GPIO
+	PORTA->PCR[13] |= (PORT_PCR_MUX(1));	// MUX = alt 1 -> GPIO
 	PORTB->PCR[19] |= (PORT_PCR_MUX(1));	// MUX = alt 1 -> GPIO
 	PORTB->PCR[18] |= (PORT_PCR_MUX(1));	// MUX = alt 1 -> GPIO
 
@@ -150,6 +149,7 @@ void initPins(void)
 
 	GPIOB->PSOR |= (1 << 19);			// Turn OFF LED
 	GPIOB->PSOR |= (1 << 18);			// Turn OFF LED
+
 }
 
 /*********************** Q/learning functions **************************/
@@ -231,5 +231,24 @@ void dataPrep(uint8_t* buffer, float value)
 	buffer[1] = (uint8_t)(uTempValue >> 8);
 	buffer[2] = (uint8_t)(uTempValue >> 16);
 	buffer[3] = (uint8_t)(uTempValue >> 24);
+}
+
+void initButton(void)
+{
+	SIM->SCGC5 |= SIM_SCGC5_PORTD_MASK; // PORTD clock enable
+	PORTD->PCR[7] |= PORT_PCR_MUX(1) | PORT_PCR_PS_MASK | PORT_PCR_PE_MASK;	// MUX = alt 1 -> GPIO ||| mozna pull rezistor???
+
+	NVIC_SetVector(PORTD_IRQn, (uint32_t)&PORTD_IRQHandler);
+	NVIC_ClearPendingIRQ(PORTD_IRQn);
+	NVIC_SetPriority(PORTD_IRQn, 2);
+	NVIC_EnableIRQ(PORTD_IRQn);
+
+	PORTD->PCR[7] |= PORT_PCR_IRQC(0b1010); // Interrupt on falling edge
+
+}
+
+void __attribute__ ((interrupt)) PORTD_IRQHandler(void){
+	PORTD->PCR[7] |= PORT_PCR_ISF_MASK;	//Clear the PTD7 flag (w1c)
+	btnIntFlag = 1;
 }
 

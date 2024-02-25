@@ -1,9 +1,8 @@
 
 
-
-Breakpoint=D:/skola/eclipse_workspace_alt/lorawan_stage/src/app/main_alt.c:285:17, State=BP_STATE_DISABLED
+OpenDocument="helper_functions.c", FilePath="D:/skola/eclipse_workspace_alt/lorawan_stage/src/app/helper_functions.c", Line=193
 OpenDocument="timer.c", FilePath="D:/skola/eclipse_workspace_alt/lorawan_stage/src/_loramac-node/_bind/timer.c", Line=102
-OpenDocument="main_alt.c", FilePath="D:/skola/eclipse_workspace_alt/lorawan_stage/src/app/main_alt.c", Line=198
+OpenDocument="main_alt.c", FilePath="D:/skola/eclipse_workspace_alt/lorawan_stage/src/app/main_alt.c", Line=262
 OpenDocument="Region.c", FilePath="D:/skola/eclipse_workspace_alt/lorawan_stage/src/_loramac-node/mac/region/Region.c", Line=533
 OpenDocument="utilities.c", FilePath="D:/skola/eclipse_workspace_alt/lorawan_stage/src/_loramac-node/_bind/utilities.c", Line=55
 OpenDocument="sx126x-board.c", FilePath="D:/skola/eclipse_workspace_alt/lorawan_stage/src/_loramac-node/_bind/sx126x-board.c", Line=91
@@ -19,25 +18,26 @@ OpenDocument="delay.s", FilePath="D:/skola/eclipse_workspace_alt/lorawan_stage/s
 OpenDocument="LoRaMacCommands.c", FilePath="D:/skola/eclipse_workspace_alt/lorawan_stage/src/_loramac-node/mac/LoRaMacCommands.c", Line=416
 OpenDocument="RegionCommon.c", FilePath="D:/skola/eclipse_workspace_alt/lorawan_stage/src/_loramac-node/mac/region/RegionCommon.c", Line=232
 OpenDocument="LoRaMacConfirmQueue.c", FilePath="D:/skola/eclipse_workspace_alt/lorawan_stage/src/_loramac-node/mac/LoRaMacConfirmQueue.c", Line=134
-OpenDocument="helper_functions.c", FilePath="D:/skola/eclipse_workspace_alt/lorawan_stage/src/app/helper_functions.c", Line=37
+OpenDocument="startup.s", FilePath="D:/skola/eclipse_workspace_alt/lorawan_stage/src/_agn/startup.s", Line=12
 OpenToolbar="Debug", Floating=0, x=0, y=0
 OpenWindow="Call Stack", DockArea=RIGHT, x=0, y=0, w=795, h=741, TabPos=0, TopOfStack=0, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0
 OpenWindow="Registers 1", DockArea=RIGHT, x=0, y=0, w=795, h=741, TabPos=2, TopOfStack=0, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0, FilteredItems=[], RefreshRate=1
 OpenWindow="Disassembly", DockArea=RIGHT, x=0, y=0, w=795, h=741, TabPos=1, TopOfStack=0, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0
 OpenWindow="Memory 1", DockArea=BOTTOM, x=2, y=0, w=659, h=203, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0, EditorAddress=0x20000774
 OpenWindow="Local Data", DockArea=RIGHT, x=0, y=0, w=795, h=741, TabPos=3, TopOfStack=1, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0
-OpenWindow="Watched Data 1", DockArea=LEFT, x=0, y=0, w=367, h=426, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0
-OpenWindow="Functions", DockArea=LEFT, x=0, y=1, w=367, h=330, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0
+OpenWindow="Watched Data 1", DockArea=LEFT, x=0, y=0, w=367, h=422, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0
+OpenWindow="Functions", DockArea=LEFT, x=0, y=1, w=367, h=334, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0
 OpenWindow="Data Sampling", DockArea=BOTTOM, x=0, y=0, w=598, h=203, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0, VisibleTab=0, UniformSampleSpacing=0
 OpenWindow="Console", DockArea=BOTTOM, x=1, y=0, w=661, h=203, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0
 SmartViewPlugin="", Page="", Toolbar="Hidden", Window="SmartView 1"
-TableHeader="Registers 1", SortCol="Name", SortOrder="ASCENDING", VisibleCols=["Name";"Value";"Description"], ColWidths=[135;222;438]
 TableHeader="Call Stack", SortCol="Function", SortOrder="ASCENDING", VisibleCols=["Function";"Stack Frame";"Source";"PC";"Return Address";"Stack Used"], ColWidths=[162;112;128;100;168;125]
+TableHeader="Registers 1", SortCol="Name", SortOrder="ASCENDING", VisibleCols=["Name";"Value";"Description"], ColWidths=[135;342;318]
+TableHeader="Local Data", SortCol="Name", SortOrder="ASCENDING", VisibleCols=["Name";"Value";"Location";"Size";"Type";"Scope"], ColWidths=[100;100;100;100;112;283]
 TableHeader="Functions", SortCol="Name", SortOrder="ASCENDING", VisibleCols=["Name";"Address";"Size";"#Insts";"Source"], ColWidths=[1320;100;100;100;584]
 TableHeader="Data Sampling Table", SortCol="None", SortOrder="ASCENDING", VisibleCols=["Index";"Time"], ColWidths=[100;100]
 TableHeader="Data Sampling Setup", SortCol="Expression", SortOrder="ASCENDING", VisibleCols=["Expression";"Type";"Value";"Min";"Max";"Average";"# Changes";"Min. Change";"Max. Change"], ColWidths=[100;100;100;100;100;100;100;100;100]
 TableHeader="Power Sampling", SortCol="None", SortOrder="ASCENDING", VisibleCols=["Index";"Time";"Ch 0"], ColWidths=[100;100;100]
 TableHeader="Watched Data 1", SortCol="Expression", SortOrder="ASCENDING", VisibleCols=["Expression";"Value";"Location";"Refresh"], ColWidths=[100;100;100;100]
 TableHeader="RegisterSelectionDialog", SortCol="None", SortOrder="ASCENDING", VisibleCols=[], ColWidths=[]
-TableHeader="Local Data", SortCol="Name", SortOrder="ASCENDING", VisibleCols=["Name";"Value";"Location";"Size";"Type";"Scope"], ColWidths=[100;100;100;100;112;283]
 TableHeader="TargetExceptionDialog", SortCol="Name", SortOrder="ASCENDING", VisibleCols=["Name";"Value";"Address";"Description"], ColWidths=[200;100;100;376]
+WatchedExpression="currentState", Window=Watched Data 1
