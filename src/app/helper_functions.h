@@ -13,6 +13,7 @@
 #include <stddef.h>
 #include "utilities.h"
 #include "adc.h"
+#include "led.h"
 
 
 #define NUM_STATES		4
@@ -28,10 +29,11 @@
 
 extern int lptmrIntFlag;
 extern int btnIntFlag;
+extern uint8_t okFlag;
 
 void switchtoBLPI(void);
 void setVLPRmode(void);
-void setVLPS(void);
+int setVLPS(void);
 void __attribute__ ((interrupt)) LPTMR0_IRQHandler(void);
 void initLPTMR(void);
 void startLPTMR(uint16_t x);

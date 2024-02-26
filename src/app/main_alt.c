@@ -167,9 +167,13 @@ static void systime_upd_cb(bool sync, int32_t corr)
 
 int lptmrIntFlag;
 int btnIntFlag;
+uint8_t okFlag;
+
+uint8_t itterationCnt = 0;
 
 void alt_main(void)
 {
+	okFlag = 0;
 	/* INIT SECTION */
 	led_init();
 	initButton();
@@ -284,7 +288,8 @@ void alt_main(void)
 					/* Data preparation for sending */
 					dataPrep(tx_buf, tempValue);
 					/* SEND FUNCTION */
-
+					tx_buf[4] = itterationCnt;
+					tx_buf[5] = okFlag;
 					if(!tx_busy && !LmHandlerIsBusy()) {
 						assert(LmHandlerSend(&tx_desc, LORAMAC_HANDLER_UNCONFIRMED_MSG) == LORAMAC_HANDLER_SUCCESS);
 						//LED_ON(LED_D1);
@@ -378,17 +383,19 @@ void alt_main(void)
 			SX126xPwrOff();
 			// Deinit of ADC
 			deInitADC();
+			LED_OFF(LED_D1);
 
 			/* STARTING LPTMR + ENTERING SLEEP MODE */
 			lptmrIntFlag = 0;
 			initLPTMR();
 			startLPTMR(valueLPTMR);
-			setVLPS();
+			assert(setVLPS());
 
-			while(1){
+			/*while(1){
 				__asm("WFI");
 				if(lptmrIntFlag) break;
-			}
+			}*/
+			itterationCnt++;
 			previousState = currentState;
 			btnIntFlag = 0;
 		}

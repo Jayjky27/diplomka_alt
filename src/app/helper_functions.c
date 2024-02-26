@@ -38,16 +38,34 @@ void setVLPRmode(void)
 	SMC->PMCTRL |= SMC_PMCTRL_RUNM(2); 		//Entry VLPR mode
 }
 
-void setVLPS(void)
+int setVLPS(void)
 {
-	SMC->PMCTRL |= SMC_PMCTRL_STOPM(0b10);
-	SCB->SCR |= SCB_SCR_SLEEPDEEP_Msk;
+	while(1){
+		SMC->PMCTRL &= ~SMC_PMCTRL_STOPM_MASK;
+		SMC->PMCTRL |= SMC_PMCTRL_STOPM(0b10);		// VLPS
+		SCB->SCR |= SCB_SCR_SLEEPDEEP_Msk;
+		__asm("WFI");
+		if(lptmrIntFlag) break;
+		 __ISB();
+	}
+
+  if (SMC->PMCTRL & SMC_PMCTRL_STOPA_MASK)
+	{
+	  	okFlag = 0;
+		return 0;
+	}
+	else
+	{
+		okFlag = 1;
+		return 1;
+	}
 }
 
 void __attribute__ ((interrupt)) LPTMR0_IRQHandler(void){
 	LPTMR0->CSR = LPTMR_CSR_TCF_MASK;	//Clear the LPTMR flag (w1c)
 	lptmrIntFlag = 1;
 	LPTMR0->CSR &= ~LPTMR_CSR_TEN_MASK;
+
 }
 
 void initLPTMR(void)
@@ -249,6 +267,7 @@ void initButton(void)
 
 void __attribute__ ((interrupt)) PORTD_IRQHandler(void){
 	PORTD->PCR[7] |= PORT_PCR_ISF_MASK;	//Clear the PTD7 flag (w1c)
+	LED_ON(LED_D1);
 	btnIntFlag = 1;
 }
 
