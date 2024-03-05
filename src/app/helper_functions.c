@@ -267,7 +267,7 @@ void initButton(void)
 
 void __attribute__ ((interrupt)) PORTD_IRQHandler(void){
 	PORTD->PCR[7] |= PORT_PCR_ISF_MASK;	//Clear the PTD7 flag (w1c)
-	LED_ON(LED_D1);
+	//LED_ON(LED_D1);
 	btnIntFlag = 1;
 }
 

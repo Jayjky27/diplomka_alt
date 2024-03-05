@@ -383,18 +383,13 @@ void alt_main(void)
 			SX126xPwrOff();
 			// Deinit of ADC
 			deInitADC();
-			LED_OFF(LED_D1);
+			//LED_OFF(LED_D1);
 
 			/* STARTING LPTMR + ENTERING SLEEP MODE */
 			lptmrIntFlag = 0;
 			initLPTMR();
 			startLPTMR(valueLPTMR);
 			assert(setVLPS());
-
-			/*while(1){
-				__asm("WFI");
-				if(lptmrIntFlag) break;
-			}*/
 			itterationCnt++;
 			previousState = currentState;
 			btnIntFlag = 0;
