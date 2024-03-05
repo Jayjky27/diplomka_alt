@@ -52,7 +52,7 @@ int setVLPS(void)
   if (SMC->PMCTRL & SMC_PMCTRL_STOPA_MASK)
 	{
 	  	okFlag = 0;
-		return 0;
+		return 1; // return 0 !!!!!
 	}
 	else
 	{
@@ -133,11 +133,19 @@ void deInitADC(void)
 	ADC0->SC1[0] = ADC_SC1_ADCH(0x1F); // Module disabled
 }
 
-uint16_t adcRead(void)
+float getEnergy(void)
 {
 	ADC0->SC1[0] = ADC_SC1_ADCH(4);	// Set input channel 0
 	while(!(ADC0->SC1[0] & ADC_SC1_COCO_MASK));
-	return ADC0->R[0];
+
+	uint16_t adcVal = ADC0->R[0];
+	float measuredVoltage = VOLTAGE_MCU*((float)adcVal/65535); //
+	measuredVoltage = measuredVoltage * (VOLTAGE_SUPERCAP/VOLTAGE_MCU);
+	float energyCap = 0.5*measuredVoltage*measuredVoltage; // E = 0.5 * C * V^2
+	float SoC = energyCap - E_MIN; // State of Charge
+	SoC = (SoC/10.656)*100; // SoC in % | 10.656 = E_STORE 2.5 V
+
+	return SoC;
 }
 
 void initPins(void)
@@ -268,6 +276,6 @@ void initButton(void)
 void __attribute__ ((interrupt)) PORTD_IRQHandler(void){
 	PORTD->PCR[7] |= PORT_PCR_ISF_MASK;	//Clear the PTD7 flag (w1c)
 	//LED_ON(LED_D1);
-	btnIntFlag = 1;
+	//btnIntFlag = 1;
 }
 

@@ -16,16 +16,21 @@
 #include "led.h"
 
 
-#define NUM_STATES		4
-#define NUM_ACTIONS		4
-#define ALPHA			0.3 // Learning rate
-#define GAMMA			0.9 // Discount rate
-#define MAX_ITTERATION	1000
-#define EPSILON			10 // Explorace 10%
-#define ACTION_WEIGHT	0.3
-#define STATE_WEIGHT 	0.6
-#define EPOCHS			10 // Number of epochs
-#define VTEMP25			701.2
+#define NUM_STATES			4
+#define NUM_ACTIONS			4
+#define ALPHA				0.3 // Learning rate
+#define GAMMA				0.9 // Discount rate
+#define MAX_ITTERATION		1000
+#define EPSILON				10 // Explorace 10%
+#define ACTION_WEIGHT		0.3
+#define STATE_WEIGHT 		0.6
+#define EPOCHS				10 // Number of epochs
+#define VTEMP25				701.2
+#define VOLTAGE_MCU			2.5
+#define VOLTAGE_SUPERCAP 	5.25
+#define E_MIN				(0.5*(VOLTAGE_MCU*VOLTAGE_MCU)) // Minimal energy on SuperCap
+#define E_MAX				(0.5*(5.25*5.25))
+#define E_STORE				E_MAX-E_MIN
 
 extern int lptmrIntFlag;
 extern int btnIntFlag;
@@ -39,7 +44,7 @@ void initLPTMR(void);
 void startLPTMR(uint16_t x);
 int initADC(void);
 void deInitADC(void);
-uint16_t adcRead(void);
+float getEnergy(void);
 void initPins(void);
 void init_Qtable(float Qtable[NUM_STATES][NUM_ACTIONS]);
 int32_t selectAction(float Qtable[NUM_STATES][NUM_ACTIONS], int state, int currentEpoch, int currentEpsilon);

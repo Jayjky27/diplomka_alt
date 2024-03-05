@@ -166,7 +166,6 @@ static void systime_upd_cb(bool sync, int32_t corr)
 }
 
 int lptmrIntFlag;
-int btnIntFlag;
 uint8_t okFlag;
 
 uint8_t itterationCnt = 0;
@@ -182,9 +181,9 @@ void alt_main(void)
 	initPins();
 	initLPTMR();
 
-	float Qtable[NUM_STATES][NUM_ACTIONS], reward = 0.0, tempValue = 0.0;
-	uint16_t valueADC = 0, valueLPTMR = 0;
-	int action = 0, currentState = 0, previousState = 0, measureFlag = 0, epochsCnt = 1, epsilon = 90;
+	float Qtable[NUM_STATES][NUM_ACTIONS], reward = 0.0, tempValue = 0.0, stateOfCharge = 0.0;
+	uint16_t valueLPTMR = 0;
+	int action = 0, currentState = 0, previousState = 0, epochsCnt = 1, epsilon = 90;
 	init_Qtable(Qtable);
 
 	/* LORAWAN LOCAL VARIABLES + STRUCTURES */
@@ -251,149 +250,94 @@ void alt_main(void)
 		LmHandlerJoin();
 
 	while(1){
-		if(btnIntFlag){
-
-			/* MAIN LOOP */
-			// DEINITIALIZATION OF LORAMAC
-			if(epochsCnt > 1){
-				lora_init_complet(&lmh_cb, &lmh_prm, mib_req, chan_prm);
-			}
-			LmHandlerProcess();
-
-			/* DETERMINATION OF ENERGY STATUS */
-			assert(!initADC());
-			valueADC = adcRead();
-
-			if(valueADC < 16000){
-				currentState = 0;
-			}else if(valueADC >= 48000){
-				currentState = 3;
-			}else if((valueADC >= 16000) && (valueADC < 32000)){
-				currentState = 1;
-			}else{
-				currentState = 2;
-			}
-
-			/* CALCULATION OF THE REWARD + UPDATING THE VALUES IN THE Q-TABLE */
-			if (epochsCnt > 1) {
-				reward = STATE_WEIGHT*(currentState - previousState) - ACTION_WEIGHT*(action + 1);
-				updateQ(Qtable, previousState, action, reward, currentState);
-			}
-			/* MEASUREMENT + COMMUNICATION */
-			currentState = 0; // FOR TESTING TO BE DELETED !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-			switch(currentState) {
-				case 0:
-					/* MEAS FUNCTION */
-					tempValue = getTemp();
-					/* Data preparation for sending */
-					dataPrep(tx_buf, tempValue);
-					/* SEND FUNCTION */
-					tx_buf[4] = itterationCnt;
-					tx_buf[5] = okFlag;
-					if(!tx_busy && !LmHandlerIsBusy()) {
-						assert(LmHandlerSend(&tx_desc, LORAMAC_HANDLER_UNCONFIRMED_MSG) == LORAMAC_HANDLER_SUCCESS);
-						//LED_ON(LED_D1);
-						measureFlag = 0;
-					}
-					while(tx_busy);
-					while(LmHandlerIsBusy()){
-						LmHandlerProcess();
-					}
-					measureFlag = 0;
-					break;
-				case 1:
-					/* MEAS FUNCTION */
-					tempValue = getTemp();
-					measureFlag = 1;
-					break;
-				case 2:
-					if (measureFlag) {
-						/* Data preparation for sending */
-						dataPrep(tx_buf, tempValue);
-						/* SEND FUNCTION */
-						if(!tx_busy && !LmHandlerIsBusy()) {
-							assert(LmHandlerSend(&tx_desc, LORAMAC_HANDLER_UNCONFIRMED_MSG) == LORAMAC_HANDLER_SUCCESS);
-							//LED_ON(LED_D1);
-							measureFlag = 0;
-						}
-						while(tx_busy);
-						delay(2000000); // for testing reasons
-					} else {
-						/* MEAS FUNCTION */
-						tempValue = getTemp();
-						measureFlag = 1;
-					}
-					break;
-				case 3:
-					/* MEAS FUNCTION */
-					tempValue = getTemp();
-					/* Data preparation for sending */
-					dataPrep(tx_buf, tempValue);
-					/* SEND FUNCTION */
-
-					if(!tx_busy && !LmHandlerIsBusy()) {
-						assert(LmHandlerSend(&tx_desc, LORAMAC_HANDLER_UNCONFIRMED_MSG) == LORAMAC_HANDLER_SUCCESS);
-						//LED_ON(LED_D1);
-						measureFlag = 0;
-					}
-					while(tx_busy);
-					while(LmHandlerIsBusy()){
-						LmHandlerProcess();
-					}
-					measureFlag = 0;
-					break;
-				default:
-					assert(0);
-					break;
-			}
-
-			/* SELECTION OF ACTION */
-			action = selectAction(Qtable, currentState, epochsCnt, epsilon);
-
-			switch(action){
-				case 0:
-					valueLPTMR = 6000;
-					break;
-
-				case 1:
-					valueLPTMR = 4000;
-					break;
-
-				case 2:
-					valueLPTMR = 2000;
-					break;
-
-				case 3:
-					valueLPTMR = 1000;
-					break;
-				default:
-					assert(0);
-					break;
-			}
-
-			/* OPERATIONS NEEDED FOR TRAINING */
-			if(epochsCnt <= EPOCHS){
-				epsilon -= 8;
-				epochsCnt++;
-			}
-
-			/* DEINITIALIZATION OF MODULES */
-			TimerDeInitAll();
-			assert(!(LoRaMacDeInitialization()));
-			SX126xPwrOff();
-			// Deinit of ADC
-			deInitADC();
-			//LED_OFF(LED_D1);
-
-			/* STARTING LPTMR + ENTERING SLEEP MODE */
-			lptmrIntFlag = 0;
-			initLPTMR();
-			startLPTMR(valueLPTMR);
-			assert(setVLPS());
-			itterationCnt++;
-			previousState = currentState;
-			btnIntFlag = 0;
+		/* MAIN LOOP */
+		// DEINITIALIZATION OF LORAMAC
+		if(epochsCnt > 1){
+			lora_init_complet(&lmh_cb, &lmh_prm, mib_req, chan_prm);
 		}
+		LmHandlerProcess();
+
+		/* DETERMINATION OF ENERGY STATUS */
+		assert(!initADC());
+		stateOfCharge = getEnergy();
+
+		if(stateOfCharge < 10){
+			currentState = 0;
+		}else if(stateOfCharge >= 80){
+			currentState = 3;
+		}else if((stateOfCharge >= 10) && (stateOfCharge < 40)){
+			currentState = 1;
+		}else{
+			currentState = 2;
+		}
+
+		/* CALCULATION OF THE REWARD + UPDATING THE VALUES IN THE Q-TABLE */
+		if (epochsCnt > 1) {
+			reward = STATE_WEIGHT*(currentState - previousState) - ACTION_WEIGHT*(action + 1);
+			updateQ(Qtable, previousState, action, reward, currentState);
+		}
+
+		/* MEAS FUNCTION */
+		tempValue = getTemp();
+		/* Data preparation for sending */
+		dataPrep(tx_buf, tempValue);
+		/* SEND FUNCTION */
+		tx_buf[4] = itterationCnt;
+		tx_buf[5] = okFlag;
+		if(!tx_busy && !LmHandlerIsBusy()) {
+			assert(LmHandlerSend(&tx_desc, LORAMAC_HANDLER_UNCONFIRMED_MSG) == LORAMAC_HANDLER_SUCCESS);
+			//LED_ON(LED_D1);
+		}
+		while(tx_busy);
+		while(LmHandlerIsBusy()){
+			LmHandlerProcess();
+		}
+
+		/* SELECTION OF ACTION */
+		action = selectAction(Qtable, currentState, epochsCnt, epsilon);
+
+		switch(action){
+			case 0:
+				valueLPTMR = 6000;
+				break;
+
+			case 1:
+				valueLPTMR = 4000;
+				break;
+
+			case 2:
+				valueLPTMR = 2000;
+				break;
+
+			case 3:
+				valueLPTMR = 1000;
+				break;
+			default:
+				assert(0);
+				break;
+		}
+
+		/* OPERATIONS NEEDED FOR TRAINING */
+		if(epochsCnt <= EPOCHS){
+			epsilon -= 8;
+			epochsCnt++;
+		}
+
+		/* DEINITIALIZATION OF MODULES */
+		TimerDeInitAll();
+		assert(!(LoRaMacDeInitialization()));
+		SX126xPwrOff();
+		// Deinit of ADC
+		deInitADC();
+		//LED_OFF(LED_D1);
+
+		/* STARTING LPTMR + ENTERING SLEEP MODE */
+		lptmrIntFlag = 0;
+		initLPTMR();
+		startLPTMR(valueLPTMR);
+		assert(setVLPS());
+		itterationCnt++;
+		previousState = currentState;
 	}
 }
 
