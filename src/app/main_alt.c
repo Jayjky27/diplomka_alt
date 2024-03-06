@@ -261,14 +261,18 @@ void alt_main(void)
 		assert(!initADC());
 		stateOfCharge = getEnergy();
 
-		if(stateOfCharge < 10){
-			currentState = 0;
-		}else if(stateOfCharge >= 80){
-			currentState = 3;
-		}else if((stateOfCharge >= 10) && (stateOfCharge < 40)){
-			currentState = 1;
-		}else{
-			currentState = 2;
+		if (stateOfCharge < 16) {
+		    currentState = 0;
+		} else if (stateOfCharge >= 82) {
+		    currentState = 5;
+		} else if (stateOfCharge >= 66) {
+		    currentState = 4;
+		} else if (stateOfCharge >= 50) {
+		    currentState = 3;
+		} else if (stateOfCharge >= 33) {
+		    currentState = 2;
+		} else {
+		    currentState = 1;
 		}
 
 		/* CALCULATION OF THE REWARD + UPDATING THE VALUES IN THE Q-TABLE */
@@ -312,6 +316,15 @@ void alt_main(void)
 			case 3:
 				valueLPTMR = 1000;
 				break;
+
+			case 4:
+				valueLPTMR = 500;
+				break;
+
+			case 5:
+				valueLPTMR = 250;
+				break;
+
 			default:
 				assert(0);
 				break;

@@ -143,7 +143,12 @@ float getEnergy(void)
 	measuredVoltage = measuredVoltage * (VOLTAGE_SUPERCAP/VOLTAGE_MCU);
 	float energyCap = 0.5*measuredVoltage*measuredVoltage; // E = 0.5 * C * V^2
 	float SoC = energyCap - E_MIN; // State of Charge
-	SoC = (SoC/10.656)*100; // SoC in % | 10.656 = E_STORE 2.5 V
+
+	if(SoC < 0){
+		SoC = 0;
+	}else {
+		SoC = (SoC/10.656)*100; // SoC in % | 10.656 = E_STORE 2.5 V
+	}
 
 	return SoC;
 }

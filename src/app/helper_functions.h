@@ -16,8 +16,8 @@
 #include "led.h"
 
 
-#define NUM_STATES			4
-#define NUM_ACTIONS			4
+#define NUM_STATES			6
+#define NUM_ACTIONS			6
 #define ALPHA				0.3 // Learning rate
 #define GAMMA				0.9 // Discount rate
 #define MAX_ITTERATION		1000
