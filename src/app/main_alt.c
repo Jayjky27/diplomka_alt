@@ -292,21 +292,31 @@ void alt_main(void)
 			assert(LmHandlerSend(&tx_desc, LORAMAC_HANDLER_UNCONFIRMED_MSG) == LORAMAC_HANDLER_SUCCESS);
 			//LED_ON(LED_D1);
 		}
+		int i=0;
 		while(tx_busy);
 		while(LmHandlerIsBusy()){
-			LmHandlerProcess();
+			if(i == 0){
+				__BKPT();
+				LmHandlerProcess();
+			}else{
+				LmHandlerProcess();
+			}
+			i++;
 		}
+		__BKPT();
 
 		/* SELECTION OF ACTION */
 		action = selectAction(Qtable, currentState, epochsCnt, epsilon);
 
 		switch(action){
 			case 0:
-				valueLPTMR = 6000;
+				//valueLPTMR = 6000;
+				valueLPTMR = 2000;
 				break;
 
 			case 1:
-				valueLPTMR = 4000;
+				//valueLPTMR = 4000;
+				valueLPTMR = 2000;
 				break;
 
 			case 2:

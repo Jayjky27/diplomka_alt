@@ -1359,27 +1359,33 @@ static void LoRaMacHandleIrqEvents( void )
     LoRaMacRadioEvents.Value = 0;
     CRITICAL_SECTION_END( );
 
+
     if( events.Value != 0 )
     {
         if( events.Events.TxDone == 1 )
         {
             ProcessRadioTxDone( );
+            __BKPT();
         }
         if( events.Events.RxDone == 1 )
         {
             ProcessRadioRxDone( );
+            __BKPT();
         }
         if( events.Events.TxTimeout == 1 )
         {
             ProcessRadioTxTimeout( );
+            __BKPT();
         }
         if( events.Events.RxError == 1 )
         {
             ProcessRadioRxError( );
+            __BKPT();
         }
         if( events.Events.RxTimeout == 1 )
         {
             ProcessRadioRxTimeout( );
+            __BKPT();
         }
     }
 }

@@ -87,6 +87,9 @@
 							</tool>
 						</toolChain>
 					</folderInfo>
+					<fileInfo id="cdt.managedbuild.config.gnu.cross.exe.debug.1570112656.617911509" name="main.c" rcbsApplicability="disable" resourcePath="src/app/main.c" toolsToInvoke="cdt.managedbuild.tool.gnu.cross.c.compiler.1154898902.1919388638">
+						<tool id="cdt.managedbuild.tool.gnu.cross.c.compiler.1154898902.1919388638" name="Cross GCC Compiler" superClass="cdt.managedbuild.tool.gnu.cross.c.compiler.1154898902"/>
+					</fileInfo>
 					<sourceEntries>
 						<entry excluding="src/app/loramac_functions.h|src/app/loramac_functions.c|src/app/test_timer.c" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
 					</sourceEntries>

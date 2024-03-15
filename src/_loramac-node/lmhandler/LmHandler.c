@@ -502,6 +502,7 @@ LmHandlerErrorStatus_t LmHandlerSend( LmHandlerAppData_t *appData, LmHandlerMsgT
     TxParams.AppData = *appData;
     TxParams.Datarate = LmHandlerParams->TxDatarate;
 
+    __BKPT();
     status = LoRaMacMcpsRequest( &mcpsReq );
     LmHandlerCallbacks->OnMacMcpsRequest( status, &mcpsReq, mcpsReq.ReqReturn.DutyCycleWaitTime );
     DutyCycleWaitTime = mcpsReq.ReqReturn.DutyCycleWaitTime;
