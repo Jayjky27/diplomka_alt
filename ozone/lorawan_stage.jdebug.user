@@ -1,6 +1,6 @@
 
 
-OpenDocument="main_alt.c", FilePath="D:/skola/eclipse_workspace_alt/lorawan_stage/src/app/main_alt.c", Line=286
+OpenDocument="crsec.s", FilePath="D:/skola/eclipse_workspace_alt/lorawan_stage/src/_agn/crsec.s", Line=22
 OpenDocument="main.c", FilePath="D:/skola/eclipse_workspace_alt/lorawan_stage/src/app/main.c", Line=38
 OpenDocument="LmHandler.c", FilePath="D:/skola/eclipse_workspace_alt/lorawan_stage/src/_loramac-node/lmhandler/LmHandler.c", Line=492
 OpenDocument="test_radio.c", FilePath="D:/skola/eclipse_workspace_alt/lorawan_stage/src/app/test_radio.c", Line=0
@@ -8,7 +8,7 @@ OpenDocument="startup.s", FilePath="D:/skola/eclipse_workspace_alt/lorawan_stage
 OpenDocument="utilities.c", FilePath="D:/skola/eclipse_workspace_alt/lorawan_stage/src/_loramac-node/_bind/utilities.c", Line=41
 OpenDocument="LoRaMac.c", FilePath="D:/skola/eclipse_workspace_alt/lorawan_stage/src/_loramac-node/mac/LoRaMac.c", Line=1355
 OpenDocument="helper_functions.c", FilePath="D:/skola/eclipse_workspace_alt/lorawan_stage/src/app/helper_functions.c", Line=35
-OpenDocument="crsec.s", FilePath="D:/skola/eclipse_workspace_alt/lorawan_stage/src/_agn/crsec.s", Line=22
+OpenDocument="main_alt.c", FilePath="D:/skola/eclipse_workspace_alt/lorawan_stage/src/app/main_alt.c", Line=0
 OpenDocument="radio.c", FilePath="D:/skola/eclipse_workspace_alt/lorawan_stage/src/_loramac-node/radio/radio.c", Line=1336
 OpenToolbar="Debug", Floating=0, x=0, y=0
 OpenWindow="Call Stack", DockArea=RIGHT, x=0, y=0, w=795, h=741, TabPos=0, TopOfStack=0, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0
@@ -16,8 +16,8 @@ OpenWindow="Registers 1", DockArea=RIGHT, x=0, y=0, w=795, h=741, TabPos=2, TopO
 OpenWindow="Disassembly", DockArea=RIGHT, x=0, y=0, w=795, h=741, TabPos=1, TopOfStack=0, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0
 OpenWindow="Memory 1", DockArea=BOTTOM, x=2, y=0, w=659, h=203, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0, EditorAddress=0x20000774
 OpenWindow="Local Data", DockArea=RIGHT, x=0, y=0, w=795, h=741, TabPos=3, TopOfStack=1, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0
-OpenWindow="Watched Data 1", DockArea=LEFT, x=0, y=0, w=367, h=401, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0
-OpenWindow="Functions", DockArea=LEFT, x=0, y=1, w=367, h=355, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0
+OpenWindow="Watched Data 1", DockArea=LEFT, x=0, y=0, w=367, h=399, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0
+OpenWindow="Functions", DockArea=LEFT, x=0, y=1, w=367, h=357, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0
 OpenWindow="Data Sampling", DockArea=BOTTOM, x=0, y=0, w=598, h=203, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0, VisibleTab=0, UniformSampleSpacing=0
 OpenWindow="Console", DockArea=BOTTOM, x=1, y=0, w=661, h=203, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0
 SmartViewPlugin="", Page="", Toolbar="Hidden", Window="SmartView 1"

@@ -21,7 +21,7 @@
 
 
 /* LORAWAN DEFINES */
-#define TX_PAYLOAD_SIZE			32u
+#define TX_PAYLOAD_SIZE			8u
 #define RX_TRACE_LEN			8u
 #define RX_BUF_LEN				32u
 #define TX_PORT					3u
@@ -190,7 +190,6 @@ void alt_main(void)
 	ChannelParams_t chan_prm;
 	MibRequestConfirm_t mib_req;
 	LmHandlerAppData_t tx_desc;
-	uint8_t ind;
 	uint8_t tx_buf[TX_PAYLOAD_SIZE];
 
 	tx_desc.Buffer = tx_buf;
@@ -198,10 +197,6 @@ void alt_main(void)
 	tx_desc.Port = TX_PORT;
 
 	memset(tx_buf, 0, TX_PAYLOAD_SIZE);
-
-	for (ind = 0u; ind < TX_PAYLOAD_SIZE; ind += 8u) {
-		tx_buf[ind] = ind + 1u;
-	}
 
 	tx_buf[TX_PAYLOAD_SIZE - 1u] = 0xFFu;
 
@@ -216,35 +211,44 @@ void alt_main(void)
 
 	#if 1
 		mib_req.Type = MIB_CHANNELS_DEFAULT_TX_POWER;
-		mib_req.Param.ChannelsDefaultTxPower = TX_POWER_0;
+		mib_req.Param.ChannelsDefaultTxPower = TX_POWER_7;
 		assert(LoRaMacMibSetRequestConfirm(&mib_req) == LORAMAC_STATUS_OK);
 
 		mib_req.Type = MIB_CHANNELS_TX_POWER;
-		mib_req.Param.ChannelsTxPower = TX_POWER_0;
+		mib_req.Param.ChannelsTxPower = TX_POWER_7;
 		assert(LoRaMacMibSetRequestConfirm(&mib_req) == LORAMAC_STATUS_OK);
 	#endif
 
-	#if 1
+	#if 0
+		DrRange_t drRange;
+		drRange.Fields.Min = DR_6;
+		drRange.Fields.Max = DR_6;
+
+		chan_prm.Frequency = 868300000ul;
+		chan_prm.Rx1Frequency = 0ul;
+		chan_prm.DrRange = drRange;
+		chan_prm.Band = 1;
+
 		//chan_prm = (ChannelParams_t) {868300000ul, 0ul, {(DR_6 << 4u) | DR_6}, 1u};
+		assert(LoRaMacChannelAdd(3u, chan_prm) == LORAMAC_STATUS_OK);
+
+		//chan_prm = (ChannelParams_t) {867100000ul, 0ul, {(DR_6 << 4u) | DR_6}, 1u};
 		//assert(LoRaMacChannelAdd(3u, chan_prm) == LORAMAC_STATUS_OK);
 
-		chan_prm = (ChannelParams_t) {867100000ul, 0ul, {(DR_5 << 4u) | DR_0}, 1u};
-		assert(LoRaMacChannelAdd(3u, chan_prm) == LORAMAC_STATUS_OK);
+		//chan_prm = (ChannelParams_t) {867300000ul, 0ul, {(DR_6 << 4u) | DR_6}, 1u};
+		//assert(LoRaMacChannelAdd(3u, chan_prm) == LORAMAC_STATUS_OK);
 
-		chan_prm = (ChannelParams_t) {867300000ul, 0ul, {(DR_5 << 4u) | DR_0}, 1u};
-		assert(LoRaMacChannelAdd(3u, chan_prm) == LORAMAC_STATUS_OK);
+		//chan_prm = (ChannelParams_t) {867500000ul, 0ul, {(DR_6 << 4u) | DR_6}, 1u};
+		//assert(LoRaMacChannelAdd(3u, chan_prm) == LORAMAC_STATUS_OK);
 
-		chan_prm = (ChannelParams_t) {867500000ul, 0ul, {(DR_5 << 4u) | DR_0}, 1u};
-		assert(LoRaMacChannelAdd(3u, chan_prm) == LORAMAC_STATUS_OK);
+		//chan_prm = (ChannelParams_t) {867700000ul, 0ul, {(DR_6 << 4u) | DR_6}, 1u};
+		//assert(LoRaMacChannelAdd(3u, chan_prm) == LORAMAC_STATUS_OK);
 
-		chan_prm = (ChannelParams_t) {867700000ul, 0ul, {(DR_5 << 4u) | DR_0}, 1u};
-		assert(LoRaMacChannelAdd(3u, chan_prm) == LORAMAC_STATUS_OK);
+		//chan_prm = (ChannelParams_t) {867900000ul, 0ul, {(DR_6 << 4u) | DR_6}, 1u};
+		//assert(LoRaMacChannelAdd(3u, chan_prm) == LORAMAC_STATUS_OK);
 
-		chan_prm = (ChannelParams_t) {867900000ul, 0ul, {(DR_5 << 4u) | DR_0}, 1u};
-		assert(LoRaMacChannelAdd(3u, chan_prm) == LORAMAC_STATUS_OK);
-
-		chan_prm = (ChannelParams_t) {868800000ul, 0ul, {(DR_7 << 4u) | DR_7}, 1u};
-		assert(LoRaMacChannelAdd(3u, chan_prm) == LORAMAC_STATUS_OK);
+		//chan_prm = (ChannelParams_t) {868800000ul, 0ul, {(DR_7 << 4u) | DR_7}, 1u};
+		//assert(LoRaMacChannelAdd(3u, chan_prm) == LORAMAC_STATUS_OK);
 	#endif
 		//static LoRaMacPrimitives_t LoRaMacPrimitives;
 		LmHandlerJoin();
@@ -296,14 +300,12 @@ void alt_main(void)
 		while(tx_busy);
 		while(LmHandlerIsBusy()){
 			if(i == 0){
-				__BKPT();
 				LmHandlerProcess();
 			}else{
 				LmHandlerProcess();
 			}
 			i++;
 		}
-		__BKPT();
 
 		/* SELECTION OF ACTION */
 		action = selectAction(Qtable, currentState, epochsCnt, epsilon);
@@ -376,35 +378,46 @@ void lora_init_complet(LmHandlerCallbacks_t *lmh_cb, LmHandlerParams_t *lmh_prm,
 
 	#if 1
 		mib_req.Type = MIB_CHANNELS_DEFAULT_TX_POWER;
-		mib_req.Param.ChannelsDefaultTxPower = TX_POWER_0;
+		mib_req.Param.ChannelsDefaultTxPower = TX_POWER_7;
 		assert(LoRaMacMibSetRequestConfirm(&mib_req) == LORAMAC_STATUS_OK);
 
 		mib_req.Type = MIB_CHANNELS_TX_POWER;
-		mib_req.Param.ChannelsTxPower = TX_POWER_0;
+		mib_req.Param.ChannelsTxPower = TX_POWER_7;
 		assert(LoRaMacMibSetRequestConfirm(&mib_req) == LORAMAC_STATUS_OK);
 	#endif
 
-	#if 1
+	#if 0
+
+		DrRange_t drRange;
+		drRange.Fields.Min = DR_6;
+		drRange.Fields.Max = DR_6;
+
+		chan_prm.Frequency = 868300000ul;
+		chan_prm.Rx1Frequency = 0ul;
+		chan_prm.DrRange = drRange;
+		chan_prm.Band = 1;
+		assert(LoRaMacChannelAdd(3u, chan_prm) == LORAMAC_STATUS_OK);
+
 		//chan_prm = (ChannelParams_t) {868300000ul, 0ul, {(DR_6 << 4u) | DR_6}, 1u};
 		//assert(LoRaMacChannelAdd(3u, chan_prm) == LORAMAC_STATUS_OK);
 
-		chan_prm = (ChannelParams_t) {867100000ul, 0ul, {(DR_5 << 4u) | DR_0}, 1u};
-		assert(LoRaMacChannelAdd(3u, chan_prm) == LORAMAC_STATUS_OK);
+		//chan_prm = (ChannelParams_t) {867100000ul, 0ul, {(DR_6 << 4u) | DR_6}, 1u};
+		//assert(LoRaMacChannelAdd(3u, chan_prm) == LORAMAC_STATUS_OK);
 
-		chan_prm = (ChannelParams_t) {867300000ul, 0ul, {(DR_5 << 4u) | DR_0}, 1u};
-		assert(LoRaMacChannelAdd(3u, chan_prm) == LORAMAC_STATUS_OK);
+		//chan_prm = (ChannelParams_t) {867300000ul, 0ul, {(DR_6 << 4u) | DR_6}, 1u};
+		//assert(LoRaMacChannelAdd(3u, chan_prm) == LORAMAC_STATUS_OK);
 
-		chan_prm = (ChannelParams_t) {867500000ul, 0ul, {(DR_5 << 4u) | DR_0}, 1u};
-		assert(LoRaMacChannelAdd(3u, chan_prm) == LORAMAC_STATUS_OK);
+		//chan_prm = (ChannelParams_t) {867500000ul, 0ul, {(DR_6 << 4u) | DR_6}, 1u};
+		//assert(LoRaMacChannelAdd(3u, chan_prm) == LORAMAC_STATUS_OK);
 
-		chan_prm = (ChannelParams_t) {867700000ul, 0ul, {(DR_5 << 4u) | DR_0}, 1u};
-		assert(LoRaMacChannelAdd(3u, chan_prm) == LORAMAC_STATUS_OK);
+		//chan_prm = (ChannelParams_t) {867700000ul, 0ul, {(DR_6 << 4u) | DR_6}, 1u};
+		//assert(LoRaMacChannelAdd(3u, chan_prm) == LORAMAC_STATUS_OK);
 
-		chan_prm = (ChannelParams_t) {867900000ul, 0ul, {(DR_5 << 4u) | DR_0}, 1u};
-		assert(LoRaMacChannelAdd(3u, chan_prm) == LORAMAC_STATUS_OK);
+		//chan_prm = (ChannelParams_t) {867900000ul, 0ul, {(DR_6 << 4u) | DR_6}, 1u};
+		//assert(LoRaMacChannelAdd(3u, chan_prm) == LORAMAC_STATUS_OK);
 
-		chan_prm = (ChannelParams_t) {868800000ul, 0ul, {(DR_7 << 4u) | DR_7}, 1u};
-		assert(LoRaMacChannelAdd(3u, chan_prm) == LORAMAC_STATUS_OK);
+		//chan_prm = (ChannelParams_t) {868800000ul, 0ul, {(DR_7 << 4u) | DR_7}, 1u};
+		//assert(LoRaMacChannelAdd(3u, chan_prm) == LORAMAC_STATUS_OK);
 	#endif
 		//static LoRaMacPrimitives_t LoRaMacPrimitives;
 		LmHandlerJoin();
