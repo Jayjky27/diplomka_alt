@@ -163,12 +163,7 @@ void initPins(void)
 	PORTB->PCR[19] |= (PORT_PCR_MUX(1));	// MUX = alt 1 -> GPIO
 	PORTB->PCR[18] |= (PORT_PCR_MUX(1));	// MUX = alt 1 -> GPIO
 
-	/* Testing ... will be deleted */
-	PORTA->PCR[13] |= (PORT_PCR_MUX(1));
-	PORTB->PCR[9] |= (PORT_PCR_MUX(1));
-	PORTB->PCR[1] |= (PORT_PCR_MUX(1));
-
-	GPIOA->PDDR |= (1 << 13);
+	//GPIOA->PDDR |= (1 << 13);
 	GPIOB->PDDR |= (1 << 9);
 	GPIOB->PDDR |= (1 << 1);
 
@@ -284,3 +279,10 @@ void __attribute__ ((interrupt)) PORTD_IRQHandler(void){
 	//btnIntFlag = 1;
 }
 
+void radio_ON(void){
+	GPIOA->PSOR |= 1 << 12;
+}
+
+void radio_OFF(void){
+	GPIOA->PCOR |= 1 << 12;
+}

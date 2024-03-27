@@ -31,6 +31,9 @@
 #define E_MIN				(0.5*(VOLTAGE_MCU*VOLTAGE_MCU)) // Minimal energy on SuperCap
 #define E_MAX				(0.5*(5.25*5.25))
 #define E_STORE				E_MAX-E_MIN
+#define SLEEP_5MIN			(uint16_t) 75000	// Value for LPTMR
+#define SLEEP_1MIN			(uint16_t) 15000
+#define SLEEP_3MIN			(uint16_t) 45000
 
 extern int lptmrIntFlag;
 extern int btnIntFlag;
@@ -54,6 +57,8 @@ float getTemp(void);
 void dataPrep(uint8_t* buffer, float value);
 void initButton(void);
 void __attribute__ ((interrupt)) PORTD_IRQHandler(void);
+void radio_ON(void);
+void radi_OFF(void);
 
 
 #endif /* SRC_APP_HELPER_FUNCTIONS_H_ */
