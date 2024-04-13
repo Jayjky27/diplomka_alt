@@ -72,7 +72,7 @@ void initLPTMR(void)
 {
 	SIM->SCGC5 |= SIM_SCGC5_LPTMR_MASK; // Clock enable
 	LPTMR0->CSR &= ~LPTMR_CSR_TMS_MASK; // Set Time counter mode
-	LPTMR0->PSR |= LPTMR_PSR_PRESCALE(1) | LPTMR_PSR_PCS(1); /* Set prescaler and glitch filter ->
+	LPTMR0->PSR |= LPTMR_PSR_PRESCALE(6) | LPTMR_PSR_PCS(1); /* Set prescaler and glitch filter ->
 																Chip Clock = LPO — 1 kHz clock */
 	NVIC_SetVector(LPTMR0_IRQn, (uint32_t)&LPTMR0_IRQHandler);
 	NVIC_ClearPendingIRQ(LPTMR0_IRQn);
@@ -135,19 +135,21 @@ void deInitADC(void)
 
 float getEnergy(void)
 {
-	ADC0->SC1[0] = ADC_SC1_ADCH(4);	// Set input channel 0
-	while(!(ADC0->SC1[0] & ADC_SC1_COCO_MASK));
+	ADC0->SC1[0] = ADC_SC1_ADCH(4);					// measurement
+	while(!(ADC0->SC1[0] & ADC_SC1_COCO_MASK));		// wait for end of measurement
 
 	uint16_t adcVal = ADC0->R[0];
-	float measuredVoltage = VOLTAGE_MCU*((float)adcVal/65535); //
-	measuredVoltage = measuredVoltage * (VOLTAGE_SUPERCAP/VOLTAGE_MCU);
-	float energyCap = 0.5*measuredVoltage*measuredVoltage; // E = 0.5 * C * V^2
+	float measuredVoltage = VOLTAGE_MCU*((float)adcVal/65535); // convert ADC value to voltage
+
+	measuredVoltage = measuredVoltage/0.375; 		// convert voltage range
+
+	float energyCap = 0.5*measuredVoltage*measuredVoltage; // calculate energy
 	float SE;
 
 	if(energyCap > E_MIN){
-		SE = (energyCap - E_MIN)/(E_MAX - E_MIN);
+		SE = (energyCap - E_MIN)/(E_MAX - E_MIN);	// calculate SE
 	}else{
-		// to be added
+		SE = 0;
 	}
 
 	return SE;
@@ -188,36 +190,26 @@ void init_Qtable(float Qtable[NUM_STATES][NUM_ACTIONS]){
 }
 
 int32_t selectAction(float Qtable[NUM_STATES][NUM_ACTIONS], int state, int currentEpoch, int currentEpsilon){
+	int eps = 0;
 	if(currentEpoch > EPOCHS){
-		if(randr(1,100) <= EPSILON){
-			// Explorace
-			return randr(0,(NUM_ACTIONS-1));
-		}else{
-			// Exploatace: výběr akce s nejvyšší Q-hodnotou
-			int32_t bestAction = 0;
-			for (int i = 1; i < NUM_ACTIONS; i++) {
-				if (Qtable[state][i] > Qtable[state][bestAction]) {
-					bestAction = i;
-				}
-			}
-		return bestAction;
-		}
+		eps = EPSILON;
 	}else{
-		if(randr(1,100) <= currentEpsilon){
-			// Explorace
-			return randr(0,(NUM_ACTIONS-1));
-		}else{
-			// Exploatace: výběr akce s nejvyšší Q-hodnotou
-			int32_t bestAction = 0;
-			for (int i = 1; i < NUM_ACTIONS; i++) {
-				if (Qtable[state][i] > Qtable[state][bestAction]) {
-					bestAction = i;
-				}
-			}
-		return bestAction;
-		}
+		eps = currentEpsilon;
 	}
 
+	if(randr(1,100) <= eps){
+		// Explorace
+		return randr(0,(NUM_ACTIONS-1));
+	}else{
+		// Exploatace: selecting the action with the highest Q-value
+		int32_t bestAction = 0;
+		for (int i = 1; i < NUM_ACTIONS; i++) {
+			if (Qtable[state][i] > Qtable[state][bestAction]) {
+				bestAction = i;
+			}
+		}
+	return bestAction;
+	}
 }
 
 void updateQ(float Qtable[NUM_STATES][NUM_ACTIONS], int state, int action, float reward, int nextState) {

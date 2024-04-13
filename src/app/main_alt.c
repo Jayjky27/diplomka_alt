@@ -176,6 +176,7 @@ void alt_main(void)
 	okFlag = 0;
 	float Qtable[NUM_STATES][NUM_ACTIONS], reward = 0.0, tempValue = 0.0, stateOfCharge = 0.0;
 	int action = 0, currentState = 0, previousState = 0, epochsCnt = 1, epsilon = 90;
+	uint16_t valueLPTMR = 0;
 
 	/* LORAWAN LOCAL VARIABLES + STRUCTURES */
 	ChannelParams_t chan_prm;
@@ -245,6 +246,42 @@ void alt_main(void)
 		/* SELECTION OF ACTION */
 		action = selectAction(Qtable, currentState, epochsCnt, epsilon);
 
+		switch(action){
+			case 0:
+				valueLPTMR = SLEEP_20MIN;
+				break;
+
+			case 1:
+				valueLPTMR = SLEEP_40MIN;
+				break;
+
+			case 2:
+				valueLPTMR = SLEEP_60MIN;
+				break;
+
+			case 3:
+				valueLPTMR = SLEEP_80MIN;
+				break;
+
+			case 4:
+				valueLPTMR = SLEEP_100MIN;
+				break;
+
+			case 5:
+				valueLPTMR = SLEEP_120MIN;
+				break;
+
+			default:
+				assert(0);
+				break;
+		}
+
+		/* OPERATIONS NEEDED FOR TRAINING */
+		if(epochsCnt <= EPOCHS){
+			epsilon -= 8;
+			epochsCnt++;
+		}
+
 		/* DEINITIALIZATION OF MODULES */
 		TimerDeInitAll();
 		assert(!(LoRaMacDeInitialization()));
@@ -256,7 +293,7 @@ void alt_main(void)
 		/* STARTING LPTMR + ENTERING SLEEP MODE */
 		lptmrIntFlag = 0;
 		initLPTMR();
-		startLPTMR(SLEEP_5MIN);
+		startLPTMR(valueLPTMR);
 		assert(setVLPS());
 
 		itterationCnt++;

@@ -31,9 +31,13 @@
 #define E_MIN				5.45 // Minimal energy on SuperCap
 #define E_MAX				13.78
 #define E_STORE				E_MAX-E_MIN
-#define SLEEP_5MIN			(uint16_t) 75000	// Value for LPTMR
-#define SLEEP_1MIN			(uint16_t) 15000
-#define SLEEP_3MIN			(uint16_t) 45000
+#define SLEEP_20MIN			(uint16_t) 9375	// Value for LPTMR
+#define SLEEP_40MIN			(uint16_t) 18750
+#define SLEEP_60MIN			(uint16_t) 28125
+#define SLEEP_80MIN			(uint16_t) 37500
+#define SLEEP_100MIN		(uint16_t) 46875
+#define SLEEP_120MIN		(uint16_t) 56250
+
 
 extern int lptmrIntFlag;
 extern int btnIntFlag;
