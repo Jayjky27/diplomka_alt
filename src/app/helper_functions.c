@@ -142,15 +142,15 @@ float getEnergy(void)
 	float measuredVoltage = VOLTAGE_MCU*((float)adcVal/65535); //
 	measuredVoltage = measuredVoltage * (VOLTAGE_SUPERCAP/VOLTAGE_MCU);
 	float energyCap = 0.5*measuredVoltage*measuredVoltage; // E = 0.5 * C * V^2
-	float SoC = energyCap - E_MIN; // State of Charge
+	float SE;
 
-	if(SoC < 0){
-		SoC = 0;
-	}else {
-		SoC = (SoC/10.656)*100; // SoC in % | 10.656 = E_STORE 2.5 V
+	if(energyCap > E_MIN){
+		SE = (energyCap - E_MIN)/(E_MAX - E_MIN);
+	}else{
+		// to be added
 	}
 
-	return SoC;
+	return SE;
 }
 
 void initPins(void)

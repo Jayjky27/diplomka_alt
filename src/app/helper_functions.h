@@ -28,8 +28,8 @@
 #define VTEMP25				701.2
 #define VOLTAGE_MCU			2.5
 #define VOLTAGE_SUPERCAP 	5.25
-#define E_MIN				(0.5*(VOLTAGE_MCU*VOLTAGE_MCU)) // Minimal energy on SuperCap
-#define E_MAX				(0.5*(5.25*5.25))
+#define E_MIN				5.45 // Minimal energy on SuperCap
+#define E_MAX				13.78
 #define E_STORE				E_MAX-E_MIN
 #define SLEEP_5MIN			(uint16_t) 75000	// Value for LPTMR
 #define SLEEP_1MIN			(uint16_t) 15000

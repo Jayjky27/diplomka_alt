@@ -203,43 +203,22 @@ void alt_main(void)
 
 	while(1){
 		/* MAIN LOOP */
-		/* STARTING LPTMR + ENTERING SLEEP MODE */
-		lptmrIntFlag = 0;
-		initLPTMR();
-		startLPTMR(SLEEP_5MIN);
-		assert(setVLPS());
-
-		itterationCnt++;
-		previousState = currentState;
-
-		while(!(GPIOA->PDIR & (1 << 13))){
-			lptmrIntFlag = 0;
-			initLPTMR();
-			startLPTMR(SLEEP_1MIN);
-			assert(setVLPS());
-		}
-
-
-		assert(!initADC());
-		lora_init_complet(&lmh_cb, &lmh_prm, mib_req, chan_prm);
-		LmHandlerProcess();
-
 		/* DETERMINATION OF ENERGY STATUS */
 		assert(!initADC());
 		stateOfCharge = getEnergy();
 
-		if (stateOfCharge < 16) {
-		    currentState = 0;
-		} else if (stateOfCharge >= 82) {
-		    currentState = 5;
-		} else if (stateOfCharge >= 66) {
-		    currentState = 4;
-		} else if (stateOfCharge >= 50) {
-		    currentState = 3;
-		} else if (stateOfCharge >= 33) {
-		    currentState = 2;
-		} else {
+		if (stateOfCharge < 1/6) {
 		    currentState = 1;
+		} else if ((stateOfCharge >= (1/6)) && (stateOfCharge < (2/6))) {
+		    currentState = 2;
+		} else if ((stateOfCharge >= (2/6)) && (stateOfCharge < (3/6))) {
+		    currentState = 3;
+		} else if ((stateOfCharge >= (3/6)) && (stateOfCharge < (4/6))) {
+		    currentState = 4;
+		} else if ((stateOfCharge >= (4/6)) && (stateOfCharge < (5/6))) {
+		    currentState = 5;
+		} else {
+		    currentState = 6;
 		}
 
 		/* CALCULATION OF THE REWARD + UPDATING THE VALUES IN THE Q-TABLE */
@@ -250,16 +229,14 @@ void alt_main(void)
 
 		/* MEAS FUNCTION */
 		tempValue = getTemp();
+
 		/* Data preparation for sending */
 		dataPrep(tx_buf, tempValue);
-		/* SEND FUNCTION */
-		tx_buf[4] = itterationCnt;
-		tx_buf[5] = okFlag;
 
+		/* SEND FUNCTION */
 		if(!tx_busy && !LmHandlerIsBusy()) {
 			assert(LmHandlerSend(&tx_desc, LORAMAC_HANDLER_UNCONFIRMED_MSG) == LORAMAC_HANDLER_SUCCESS);
 		}
-
 		while(tx_busy);
 		while(LmHandlerIsBusy()){
 			LmHandlerProcess();
@@ -267,12 +244,6 @@ void alt_main(void)
 
 		/* SELECTION OF ACTION */
 		action = selectAction(Qtable, currentState, epochsCnt, epsilon);
-
-		/* OPERATIONS NEEDED FOR TRAINING */
-		if(epochsCnt <= EPOCHS){
-			epsilon -= 8;
-			epochsCnt++;
-		}
 
 		/* DEINITIALIZATION OF MODULES */
 		TimerDeInitAll();
@@ -282,6 +253,14 @@ void alt_main(void)
 		// Deinit of ADC
 		deInitADC();
 
+		/* STARTING LPTMR + ENTERING SLEEP MODE */
+		lptmrIntFlag = 0;
+		initLPTMR();
+		startLPTMR(SLEEP_5MIN);
+		assert(setVLPS());
+
+		itterationCnt++;
+		previousState = currentState;
 	}
 }
 
