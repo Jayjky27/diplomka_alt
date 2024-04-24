@@ -42,7 +42,7 @@ int setVLPS(void)
 {
 	while(1){
 		SMC->PMCTRL &= ~SMC_PMCTRL_STOPM_MASK;
-		SMC->PMCTRL |= SMC_PMCTRL_STOPM(0b10);		// VLPS
+		SMC->PMCTRL |= SMC_PMCTRL_STOPM(0b10);
 		SCB->SCR |= SCB_SCR_SLEEPDEEP_Msk;
 		__asm("WFI");
 		if(lptmrIntFlag) break;
@@ -52,7 +52,7 @@ int setVLPS(void)
   if (SMC->PMCTRL & SMC_PMCTRL_STOPA_MASK)
 	{
 	  	okFlag = 0;
-		return 1; // return 0 !!!!!
+		return 0; // return 0 !!!!!
 	}
 	else
 	{
