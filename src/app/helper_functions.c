@@ -5,12 +5,6 @@
  *      Author: Jan Fiedor
  */
 
-/*
- * helper_function.c
- *
- *  Created on: 20. 11. 2023
- *      Author: Jan Fiedor
- */
 #include "helper_functions.h"
 
 void switchtoBLPI(void)
@@ -52,7 +46,7 @@ int setVLPS(void)
   if (SMC->PMCTRL & SMC_PMCTRL_STOPA_MASK)
 	{
 	  	okFlag = 0;
-		return 0; // return 0 !!!!!
+		return 1; // return 0 !!!!!
 	}
 	else
 	{
@@ -267,8 +261,7 @@ void initButton(void)
 
 void __attribute__ ((interrupt)) PORTD_IRQHandler(void){
 	PORTD->PCR[7] |= PORT_PCR_ISF_MASK;	//Clear the PTD7 flag (w1c)
-	//LED_ON(LED_D1);
-	//btnIntFlag = 1;
+
 }
 
 void radio_ON(void){

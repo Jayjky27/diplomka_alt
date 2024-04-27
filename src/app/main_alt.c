@@ -118,7 +118,6 @@ static void mlme_req(LoRaMacStatus_t status, MlmeReq_t *req, TimerTime_t delay)
 static void join_req_cb(LmHandlerJoinParams_t *prm)
 {
 	if (prm->Status == LORAMAC_HANDLER_ERROR) {
-		__BKPT();
 		LmHandlerJoin();
 	} else {
 		assert(LmHandlerRequestClass(CLASS_A) == LORAMAC_HANDLER_SUCCESS);
@@ -228,6 +227,8 @@ void alt_main(void)
 			updateQ(Qtable, previousState, action, reward, currentState);
 		}
 
+		lora_init_complet(&lmh_cb, &lmh_prm, mib_req, chan_prm);
+
 		/* MEAS FUNCTION */
 		tempValue = getTemp();
 
@@ -314,11 +315,11 @@ void lora_init_complet(LmHandlerCallbacks_t *lmh_cb, LmHandlerParams_t *lmh_prm,
 
 	#if 1
 		mib_req.Type = MIB_CHANNELS_DEFAULT_TX_POWER;
-		mib_req.Param.ChannelsDefaultTxPower = TX_POWER_5;
+		mib_req.Param.ChannelsDefaultTxPower = TX_POWER_0;
 		assert(LoRaMacMibSetRequestConfirm(&mib_req) == LORAMAC_STATUS_OK);
 
 		mib_req.Type = MIB_CHANNELS_TX_POWER;
-		mib_req.Param.ChannelsTxPower = TX_POWER_5;
+		mib_req.Param.ChannelsTxPower = TX_POWER_0;
 		assert(LoRaMacMibSetRequestConfirm(&mib_req) == LORAMAC_STATUS_OK);
 	#endif
 

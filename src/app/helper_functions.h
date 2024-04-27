@@ -37,6 +37,7 @@
 #define SLEEP_80MIN			(uint16_t) 37500
 #define SLEEP_100MIN		(uint16_t) 46875
 #define SLEEP_120MIN		(uint16_t) 56250
+#define SLEEP_TESTING		(uint16_t) 70
 
 
 extern int lptmrIntFlag;

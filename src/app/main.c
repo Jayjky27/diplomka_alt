@@ -54,52 +54,7 @@ int main(void)
 	wdog_init(WDOG_CONF_DIS);
 	port_int_init();
 
-	sw_val = hex_sw_get();
-
-	switch (sw_val) {
-	case HEX_SW_TEST_COM_VAL:
-		test_com();
-		break;
-	case HEX_SW_TEST_ACC_VAL:
-		test_acc();
-		break;
-	case HEX_SW_TEST_EEPROM_VAL:
-		test_eeprom();
-		break;
-	case HEX_SW_TEST_BTN_LED_VAL:
-		test_btn_led();
-		break;
-	case HEX_SW_TEST_CLKOUT_VAL:
-		test_clkout();
-		break;
-	case HEX_SW_TEST_SYSTIME_VAL:
-		test_systime();
-		break;
-	/*case HEX_SW_TEST_TIMER_VAL:
-		test_timer();
-		break;*/
-	case HEX_SW_TEST_RADIO_VAL:
-		test_radio();
-		break;
-	case HEX_SW_TEST_LORA_VAL:
-		test_lora();
-		break;
-	case HEX_SW_TEST_LORA_APB_VAL:
-		test_lora_abp();
-		break;
-	case HEX_SW_TEST_LORA_OTAA_VAL:
-		test_lora_otaa();
-		break;
-	case HEX_SW_SURV_VAL:
-		surv();
-		break;
-	case HEX_SW_TEST_MAIN_CODE:
-		alt_main();
-		break;
-	default:
-		assert(0);
-		break;
-	}
+	alt_main();
 
 	return 0;
 }
