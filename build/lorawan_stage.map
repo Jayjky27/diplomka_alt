@@ -3239,7 +3239,7 @@ LOAD src\app\test_systime.o
  .fcf           0x0000000000000400       0x10 src\_soc\fcf.o
                 0x0000000000000400                fcf
 
-.text           0x0000000000000410    0x1a694
+.text           0x0000000000000410    0x1a688
  *(.text)
  .text          0x0000000000000410     0x1694 src\_agn\qfplib-m0-full.o
                 0x00000000000004c2                qfp_fcmp
@@ -4838,8 +4838,7 @@ LOAD src\app\test_systime.o
  .text.mlme_req
                 0x00000000000196de       0x28 src\app\main_alt.o
  .text.join_req_cb
-                0x0000000000019706       0x30 src\app\main_alt.o
- *fill*         0x0000000000019736        0x2 
+                0x0000000000019706       0x32 src\app\main_alt.o
  .text.tx_cb    0x0000000000019738       0x1c src\app\main_alt.o
  .text.rx_cb    0x0000000000019754       0x78 src\app\main_alt.o
  .text.class_change_cb
@@ -4849,124 +4848,124 @@ LOAD src\app\test_systime.o
  .text.systime_upd_cb
                 0x0000000000019800       0x18 src\app\main_alt.o
  .text.alt_main
-                0x0000000000019818      0x3c4 src\app\main_alt.o
+                0x0000000000019818      0x3b8 src\app\main_alt.o
                 0x0000000000019818                alt_main
  .text.lora_init_complet
-                0x0000000000019bdc       0x96 src\app\main_alt.o
-                0x0000000000019bdc                lora_init_complet
+                0x0000000000019bd0       0x96 src\app\main_alt.o
+                0x0000000000019bd0                lora_init_complet
  *(.rodata)
- *fill*         0x0000000000019c72        0x2 
- .rodata        0x0000000000019c74       0x24 src\_loramac-node\mac\region\RegionEU433.o
- .rodata        0x0000000000019c98       0x24 src\_loramac-node\mac\region\RegionEU868.o
- .rodata        0x0000000000019cbc       0x18 src\_loramac-node\mac\region\RegionRU864.o
- .rodata        0x0000000000019cd4        0x8 src\_loramac-node\radio\radio.o
- .rodata        0x0000000000019cdc       0x11 src\_loramac-node\radio\sx126x.o
- *fill*         0x0000000000019ced        0x3 
- .rodata        0x0000000000019cf0       0x28 src\_loramac-node\soft-se\soft-se.o
+ *fill*         0x0000000000019c66        0x2 
+ .rodata        0x0000000000019c68       0x24 src\_loramac-node\mac\region\RegionEU433.o
+ .rodata        0x0000000000019c8c       0x24 src\_loramac-node\mac\region\RegionEU868.o
+ .rodata        0x0000000000019cb0       0x18 src\_loramac-node\mac\region\RegionRU864.o
+ .rodata        0x0000000000019cc8        0x8 src\_loramac-node\radio\radio.o
+ .rodata        0x0000000000019cd0       0x11 src\_loramac-node\radio\sx126x.o
+ *fill*         0x0000000000019ce1        0x3 
+ .rodata        0x0000000000019ce4       0x28 src\_loramac-node\soft-se\soft-se.o
  *(.rodata*)
  .rodata.MlmeConfirm
-                0x0000000000019d18       0x34 src\_loramac-node\lmhandler\LmHandler.o
+                0x0000000000019d0c       0x34 src\_loramac-node\lmhandler\LmHandler.o
  .rodata.LoRaMacMaxEirpTable
-                0x0000000000019d4c       0x10 src\_loramac-node\mac\LoRaMac.o
+                0x0000000000019d40       0x10 src\_loramac-node\mac\LoRaMac.o
  .rodata.GetFCntDown
-                0x0000000000019d5c       0x14 src\_loramac-node\mac\LoRaMac.o
+                0x0000000000019d50       0x14 src\_loramac-node\mac\LoRaMac.o
  .rodata.ProcessMacCommands
-                0x0000000000019d70       0x50 src\_loramac-node\mac\LoRaMac.o
+                0x0000000000019d64       0x50 src\_loramac-node\mac\LoRaMac.o
  .rodata.LoRaMacMibGetRequestConfirm
-                0x0000000000019dc0      0x114 src\_loramac-node\mac\LoRaMac.o
+                0x0000000000019db4      0x114 src\_loramac-node\mac\LoRaMac.o
  .rodata.LoRaMacMibSetRequestConfirm
-                0x0000000000019ed4      0x114 src\_loramac-node\mac\LoRaMac.o
+                0x0000000000019ec8      0x114 src\_loramac-node\mac\LoRaMac.o
  .rodata.LoRaMacMlmeRequest
-                0x0000000000019fe8       0x38 src\_loramac-node\mac\LoRaMac.o
+                0x0000000000019fdc       0x38 src\_loramac-node\mac\LoRaMac.o
  .rodata.LoRaMacCommandsGetCmdSize
-                0x000000000001a020       0x50 src\_loramac-node\mac\LoRaMacCommands.o
+                0x000000000001a014       0x50 src\_loramac-node\mac\LoRaMacCommands.o
  .rodata.GetLastFcntDown
-                0x000000000001a070       0x20 src\_loramac-node\mac\LoRaMacCrypto.o
+                0x000000000001a064       0x20 src\_loramac-node\mac\LoRaMacCrypto.o
  .rodata.UpdateFCntDown
-                0x000000000001a090       0x20 src\_loramac-node\mac\LoRaMacCrypto.o
+                0x000000000001a084       0x20 src\_loramac-node\mac\LoRaMacCrypto.o
  .rodata.DataratesEU433
-                0x000000000001a0b0        0x8 src\_loramac-node\mac\region\RegionEU433.o
+                0x000000000001a0a4        0x8 src\_loramac-node\mac\region\RegionEU433.o
  .rodata.BandwidthsEU433
-                0x000000000001a0b8       0x20 src\_loramac-node\mac\region\RegionEU433.o
+                0x000000000001a0ac       0x20 src\_loramac-node\mac\region\RegionEU433.o
  .rodata.MaxPayloadOfDatarateEU433
-                0x000000000001a0d8        0x8 src\_loramac-node\mac\region\RegionEU433.o
+                0x000000000001a0cc        0x8 src\_loramac-node\mac\region\RegionEU433.o
  .rodata.RegionEU433GetPhyParam
-                0x000000000001a0e0       0xe0 src\_loramac-node\mac\region\RegionEU433.o
+                0x000000000001a0d4       0xe0 src\_loramac-node\mac\region\RegionEU433.o
  .rodata.RegionEU433Verify
-                0x000000000001a1c0       0x3c src\_loramac-node\mac\region\RegionEU433.o
+                0x000000000001a1b4       0x3c src\_loramac-node\mac\region\RegionEU433.o
  .rodata.DataratesEU868
-                0x000000000001a1fc        0x8 src\_loramac-node\mac\region\RegionEU868.o
+                0x000000000001a1f0        0x8 src\_loramac-node\mac\region\RegionEU868.o
  .rodata.BandwidthsEU868
-                0x000000000001a204       0x20 src\_loramac-node\mac\region\RegionEU868.o
+                0x000000000001a1f8       0x20 src\_loramac-node\mac\region\RegionEU868.o
  .rodata.MaxPayloadOfDatarateEU868
-                0x000000000001a224        0x8 src\_loramac-node\mac\region\RegionEU868.o
+                0x000000000001a218        0x8 src\_loramac-node\mac\region\RegionEU868.o
  .rodata.RegionEU868GetPhyParam
-                0x000000000001a22c       0xe0 src\_loramac-node\mac\region\RegionEU868.o
+                0x000000000001a220       0xe0 src\_loramac-node\mac\region\RegionEU868.o
  .rodata.RegionEU868Verify
-                0x000000000001a30c       0x3c src\_loramac-node\mac\region\RegionEU868.o
+                0x000000000001a300       0x3c src\_loramac-node\mac\region\RegionEU868.o
  .rodata.DataratesRU864
-                0x000000000001a348        0x8 src\_loramac-node\mac\region\RegionRU864.o
+                0x000000000001a33c        0x8 src\_loramac-node\mac\region\RegionRU864.o
  .rodata.BandwidthsRU864
-                0x000000000001a350       0x20 src\_loramac-node\mac\region\RegionRU864.o
+                0x000000000001a344       0x20 src\_loramac-node\mac\region\RegionRU864.o
  .rodata.MaxPayloadOfDatarateRU864
-                0x000000000001a370        0x8 src\_loramac-node\mac\region\RegionRU864.o
+                0x000000000001a364        0x8 src\_loramac-node\mac\region\RegionRU864.o
  .rodata.RegionRU864GetPhyParam
-                0x000000000001a378       0xe0 src\_loramac-node\mac\region\RegionRU864.o
+                0x000000000001a36c       0xe0 src\_loramac-node\mac\region\RegionRU864.o
  .rodata.RegionRU864Verify
-                0x000000000001a458       0x3c src\_loramac-node\mac\region\RegionRU864.o
+                0x000000000001a44c       0x3c src\_loramac-node\mac\region\RegionRU864.o
  .rodata.DataratesUS915
-                0x000000000001a494       0x10 src\_loramac-node\mac\region\RegionUS915.o
+                0x000000000001a488       0x10 src\_loramac-node\mac\region\RegionUS915.o
  .rodata.BandwidthsUS915
-                0x000000000001a4a4       0x40 src\_loramac-node\mac\region\RegionUS915.o
+                0x000000000001a498       0x40 src\_loramac-node\mac\region\RegionUS915.o
  .rodata.DatarateOffsetsUS915
-                0x000000000001a4e4       0x14 src\_loramac-node\mac\region\RegionUS915.o
+                0x000000000001a4d8       0x14 src\_loramac-node\mac\region\RegionUS915.o
  .rodata.MaxPayloadOfDatarateUS915
-                0x000000000001a4f8       0x10 src\_loramac-node\mac\region\RegionUS915.o
+                0x000000000001a4ec       0x10 src\_loramac-node\mac\region\RegionUS915.o
  .rodata.RegionUS915GetPhyParam
-                0x000000000001a508       0xe0 src\_loramac-node\mac\region\RegionUS915.o
+                0x000000000001a4fc       0xe0 src\_loramac-node\mac\region\RegionUS915.o
  .rodata.RegionUS915Verify
-                0x000000000001a5e8       0x3c src\_loramac-node\mac\region\RegionUS915.o
- .rodata.Radio  0x000000000001a624       0x6c src\_loramac-node\radio\radio.o
-                0x000000000001a624                Radio
+                0x000000000001a5dc       0x3c src\_loramac-node\mac\region\RegionUS915.o
+ .rodata.Radio  0x000000000001a618       0x6c src\_loramac-node\radio\radio.o
+                0x000000000001a618                Radio
  .rodata.FskBandwidths
-                0x000000000001a690       0xb0 src\_loramac-node\radio\radio.o
-                0x000000000001a690                FskBandwidths
+                0x000000000001a684       0xb0 src\_loramac-node\radio\radio.o
+                0x000000000001a684                FskBandwidths
  .rodata.Bandwidths
-                0x000000000001a740        0x3 src\_loramac-node\radio\radio.o
-                0x000000000001a740                Bandwidths
- *fill*         0x000000000001a743        0x1 
+                0x000000000001a734        0x3 src\_loramac-node\radio\radio.o
+                0x000000000001a734                Bandwidths
+ *fill*         0x000000000001a737        0x1 
  .rodata.RadioGetLoRaBandwidthInHz
-                0x000000000001a744       0x2c src\_loramac-node\radio\radio.o
- .rodata.sbox   0x000000000001a770      0x100 src\_loramac-node\soft-se\aes.o
+                0x000000000001a738       0x2c src\_loramac-node\radio\radio.o
+ .rodata.sbox   0x000000000001a764      0x100 src\_loramac-node\soft-se\aes.o
  .rodata.gfm2_sbox
-                0x000000000001a870      0x100 src\_loramac-node\soft-se\aes.o
+                0x000000000001a864      0x100 src\_loramac-node\soft-se\aes.o
  .rodata.gfm3_sbox
-                0x000000000001a970      0x100 src\_loramac-node\soft-se\aes.o
+                0x000000000001a964      0x100 src\_loramac-node\soft-se\aes.o
  .rodata.wdog_init
-                0x000000000001aa70       0x1c src\_soc\wdog.o
+                0x000000000001aa64       0x1c src\_soc\wdog.o
  .rodata.alt_main
-                0x000000000001aa8c       0x18 src\app\main_alt.o
+                0x000000000001aa80       0x18 src\app\main_alt.o
 
-.glue_7         0x000000000001aaa4        0x0
- .glue_7        0x000000000001aaa4        0x0 linker stubs
+.glue_7         0x000000000001aa98        0x0
+ .glue_7        0x000000000001aa98        0x0 linker stubs
 
-.glue_7t        0x000000000001aaa4        0x0
- .glue_7t       0x000000000001aaa4        0x0 linker stubs
+.glue_7t        0x000000000001aa98        0x0
+ .glue_7t       0x000000000001aa98        0x0 linker stubs
 
-.vfp11_veneer   0x000000000001aaa4        0x0
- .vfp11_veneer  0x000000000001aaa4        0x0 linker stubs
+.vfp11_veneer   0x000000000001aa98        0x0
+ .vfp11_veneer  0x000000000001aa98        0x0 linker stubs
 
-.v4_bx          0x000000000001aaa4        0x0
- .v4_bx         0x000000000001aaa4        0x0 linker stubs
+.v4_bx          0x000000000001aa98        0x0
+ .v4_bx         0x000000000001aa98        0x0 linker stubs
 
-.iplt           0x000000000001aaa4        0x0
- .iplt          0x000000000001aaa4        0x0 src\_agn\crsec.o
+.iplt           0x000000000001aa98        0x0
+ .iplt          0x000000000001aa98        0x0 src\_agn\crsec.o
 
-.rel.dyn        0x000000000001aaa4        0x0
- .rel.iplt      0x000000000001aaa4        0x0 src\_agn\crsec.o
+.rel.dyn        0x000000000001aa98        0x0
+ .rel.iplt      0x000000000001aa98        0x0 src\_agn\crsec.o
 
-.ARM.exidx      0x000000000001aaa4        0x8
- .ARM.exidx     0x000000000001aaa4        0x8 C:\toolchain\armv6-m_thumb_le\lib\gcc\arm-none-eabi\11.2.0\libgcc.a(_udivmoddi4.o)
+.ARM.exidx      0x000000000001aa98        0x8
+ .ARM.exidx     0x000000000001aa98        0x8 C:\toolchain\armv6-m_thumb_le\lib\gcc\arm-none-eabi\11.2.0\libgcc.a(_udivmoddi4.o)
 
 .stack          0x000000001ffff000     0x1800
                 0x000000001ffff000                . = ALIGN (0x8)
@@ -4985,7 +4984,7 @@ LOAD src\app\test_systime.o
                 0x00000000200008c0                VECTAB_RAM_END = .
                 0x00000000000000c0                VECTAB_RAM_LEN = (VECTAB_RAM_END - VECTAB_RAM_BEGIN)
 
-.data           0x00000000200008c0      0x1c0 load address 0x000000000001aaac
+.data           0x00000000200008c0      0x1c0 load address 0x000000000001aaa0
                 0x00000000200008c0                DATA_BEGIN = .
  *(.data)
  *(.data*)
@@ -5013,12 +5012,12 @@ LOAD src\app\test_systime.o
  .data.lmh_prm  0x0000000020000a70       0x10 src\app\main_alt.o
                 0x0000000020000a80                DATA_END = .
                 0x00000000000001c0                DATA_LEN = (DATA_END - DATA_BEGIN)
-                0x000000000001aaac                DATA_INIT = LOADADDR (.data)
+                0x000000000001aaa0                DATA_INIT = LOADADDR (.data)
 
-.igot.plt       0x0000000020000a80        0x0 load address 0x000000000001ac6c
+.igot.plt       0x0000000020000a80        0x0 load address 0x000000000001ac60
  .igot.plt      0x0000000020000a80        0x0 src\_agn\crsec.o
 
-.bss            0x0000000020000a80     0x19ae load address 0x000000000001ac6c
+.bss            0x0000000020000a80     0x19ae load address 0x000000000001ac60
                 0x0000000020000a80                BSS_BEGIN = .
  *(.bss)
  *(.bss*)
@@ -5481,7 +5480,7 @@ LOAD linker stubs
  .debug_line    0x000000000001723a       0x5e C:\toolchain\armv6-m_thumb_le\lib\gcc\arm-none-eabi\11.2.0\libgcc.a(_clzsi2.o)
  .debug_line    0x0000000000017298       0x54 C:\toolchain\armv6-m_thumb_le\lib\gcc\arm-none-eabi\11.2.0\libgcc.a(_clzdi2.o)
 
-.debug_info     0x0000000000000000    0x29f8c
+.debug_info     0x0000000000000000    0x29f7b
  .debug_info    0x0000000000000000       0x22 src\_agn\crsec.o
  .debug_info    0x0000000000000022       0x26 src\_agn\delay.o
  .debug_info    0x0000000000000048       0x22 src\_agn\expt.o
@@ -5527,41 +5526,41 @@ LOAD linker stubs
  .debug_info    0x0000000000021cfe      0x2ed src\_soc\wdog.o
  .debug_info    0x0000000000021feb      0xe3c src\app\helper_functions.o
  .debug_info    0x0000000000022e27      0x105 src\app\main.o
- .debug_info    0x0000000000022f2c     0x249a src\app\main_alt.o
- .debug_info    0x00000000000253c6       0x25 C:\toolchain\armv6-m_thumb_le\lib\gcc\arm-none-eabi\11.2.0\libgcc.a(_udivsi3.o)
- .debug_info    0x00000000000253eb       0x25 C:\toolchain\armv6-m_thumb_le\lib\gcc\arm-none-eabi\11.2.0\libgcc.a(_divsi3.o)
- .debug_info    0x0000000000025410       0x24 C:\toolchain\armv6-m_thumb_le\lib\gcc\arm-none-eabi\11.2.0\libgcc.a(_dvmd_tls.o)
- .debug_info    0x0000000000025434       0x24 C:\toolchain\armv6-m_thumb_le\lib\gcc\arm-none-eabi\11.2.0\libgcc.a(_arm_cmpdf2.o)
- .debug_info    0x0000000000025458       0x24 C:\toolchain\armv6-m_thumb_le\lib\gcc\arm-none-eabi\11.2.0\libgcc.a(_arm_cmpsf2.o)
- .debug_info    0x000000000002547c       0x24 C:\toolchain\armv6-m_thumb_le\lib\gcc\arm-none-eabi\11.2.0\libgcc.a(_aeabi_uldivmod.o)
- .debug_info    0x00000000000254a0      0x406 C:\toolchain\armv6-m_thumb_le\lib\gcc\arm-none-eabi\11.2.0\libgcc.a(_muldi3.o)
- .debug_info    0x00000000000258a6      0x318 C:\toolchain\armv6-m_thumb_le\lib\gcc\arm-none-eabi\11.2.0\libgcc.a(_fixunssfsi.o)
- .debug_info    0x0000000000025bbe      0x3c1 C:\toolchain\armv6-m_thumb_le\lib\gcc\arm-none-eabi\11.2.0\libgcc.a(_udivmoddi4.o)
- .debug_info    0x0000000000025f7f      0x34a C:\toolchain\armv6-m_thumb_le\lib\gcc\arm-none-eabi\11.2.0\libgcc.a(divsf3.o)
- .debug_info    0x00000000000262c9      0x203 C:\toolchain\armv6-m_thumb_le\lib\gcc\arm-none-eabi\11.2.0\libgcc.a(eqsf2.o)
- .debug_info    0x00000000000264cc      0x231 C:\toolchain\armv6-m_thumb_le\lib\gcc\arm-none-eabi\11.2.0\libgcc.a(gesf2.o)
- .debug_info    0x00000000000266fd      0x231 C:\toolchain\armv6-m_thumb_le\lib\gcc\arm-none-eabi\11.2.0\libgcc.a(lesf2.o)
- .debug_info    0x000000000002692e      0x3bf C:\toolchain\armv6-m_thumb_le\lib\gcc\arm-none-eabi\11.2.0\libgcc.a(mulsf3.o)
- .debug_info    0x0000000000026ced      0x328 C:\toolchain\armv6-m_thumb_le\lib\gcc\arm-none-eabi\11.2.0\libgcc.a(subsf3.o)
- .debug_info    0x0000000000027015      0x1af C:\toolchain\armv6-m_thumb_le\lib\gcc\arm-none-eabi\11.2.0\libgcc.a(fixsfsi.o)
- .debug_info    0x00000000000271c4      0x21c C:\toolchain\armv6-m_thumb_le\lib\gcc\arm-none-eabi\11.2.0\libgcc.a(floatunsisf.o)
- .debug_info    0x00000000000273e0      0x5a1 C:\toolchain\armv6-m_thumb_le\lib\gcc\arm-none-eabi\11.2.0\libgcc.a(adddf3.o)
- .debug_info    0x0000000000027981      0x7c6 C:\toolchain\armv6-m_thumb_le\lib\gcc\arm-none-eabi\11.2.0\libgcc.a(divdf3.o)
- .debug_info    0x0000000000028147      0x233 C:\toolchain\armv6-m_thumb_le\lib\gcc\arm-none-eabi\11.2.0\libgcc.a(eqdf2.o)
- .debug_info    0x000000000002837a      0x251 C:\toolchain\armv6-m_thumb_le\lib\gcc\arm-none-eabi\11.2.0\libgcc.a(gedf2.o)
- .debug_info    0x00000000000285cb      0x251 C:\toolchain\armv6-m_thumb_le\lib\gcc\arm-none-eabi\11.2.0\libgcc.a(ledf2.o)
- .debug_info    0x000000000002881c      0x7a4 C:\toolchain\armv6-m_thumb_le\lib\gcc\arm-none-eabi\11.2.0\libgcc.a(muldf3.o)
- .debug_info    0x0000000000028fc0      0x5a1 C:\toolchain\armv6-m_thumb_le\lib\gcc\arm-none-eabi\11.2.0\libgcc.a(subdf3.o)
- .debug_info    0x0000000000029561      0x1cc C:\toolchain\armv6-m_thumb_le\lib\gcc\arm-none-eabi\11.2.0\libgcc.a(fixdfsi.o)
- .debug_info    0x000000000002972d      0x28f C:\toolchain\armv6-m_thumb_le\lib\gcc\arm-none-eabi\11.2.0\libgcc.a(floatsidf.o)
- .debug_info    0x00000000000299bc      0x284 C:\toolchain\armv6-m_thumb_le\lib\gcc\arm-none-eabi\11.2.0\libgcc.a(extendsfdf2.o)
- .debug_info    0x0000000000029c40      0x274 C:\toolchain\armv6-m_thumb_le\lib\gcc\arm-none-eabi\11.2.0\libgcc.a(truncdfsf2.o)
- .debug_info    0x0000000000029eb4       0x24 C:\toolchain\armv6-m_thumb_le\lib\gcc\arm-none-eabi\11.2.0\libgcc.a(_thumb1_case_uqi.o)
- .debug_info    0x0000000000029ed8       0x24 C:\toolchain\armv6-m_thumb_le\lib\gcc\arm-none-eabi\11.2.0\libgcc.a(_thumb1_case_uhi.o)
- .debug_info    0x0000000000029efc       0x24 C:\toolchain\armv6-m_thumb_le\lib\gcc\arm-none-eabi\11.2.0\libgcc.a(_lshrdi3.o)
- .debug_info    0x0000000000029f20       0x24 C:\toolchain\armv6-m_thumb_le\lib\gcc\arm-none-eabi\11.2.0\libgcc.a(_ashldi3.o)
- .debug_info    0x0000000000029f44       0x24 C:\toolchain\armv6-m_thumb_le\lib\gcc\arm-none-eabi\11.2.0\libgcc.a(_clzsi2.o)
- .debug_info    0x0000000000029f68       0x24 C:\toolchain\armv6-m_thumb_le\lib\gcc\arm-none-eabi\11.2.0\libgcc.a(_clzdi2.o)
+ .debug_info    0x0000000000022f2c     0x2489 src\app\main_alt.o
+ .debug_info    0x00000000000253b5       0x25 C:\toolchain\armv6-m_thumb_le\lib\gcc\arm-none-eabi\11.2.0\libgcc.a(_udivsi3.o)
+ .debug_info    0x00000000000253da       0x25 C:\toolchain\armv6-m_thumb_le\lib\gcc\arm-none-eabi\11.2.0\libgcc.a(_divsi3.o)
+ .debug_info    0x00000000000253ff       0x24 C:\toolchain\armv6-m_thumb_le\lib\gcc\arm-none-eabi\11.2.0\libgcc.a(_dvmd_tls.o)
+ .debug_info    0x0000000000025423       0x24 C:\toolchain\armv6-m_thumb_le\lib\gcc\arm-none-eabi\11.2.0\libgcc.a(_arm_cmpdf2.o)
+ .debug_info    0x0000000000025447       0x24 C:\toolchain\armv6-m_thumb_le\lib\gcc\arm-none-eabi\11.2.0\libgcc.a(_arm_cmpsf2.o)
+ .debug_info    0x000000000002546b       0x24 C:\toolchain\armv6-m_thumb_le\lib\gcc\arm-none-eabi\11.2.0\libgcc.a(_aeabi_uldivmod.o)
+ .debug_info    0x000000000002548f      0x406 C:\toolchain\armv6-m_thumb_le\lib\gcc\arm-none-eabi\11.2.0\libgcc.a(_muldi3.o)
+ .debug_info    0x0000000000025895      0x318 C:\toolchain\armv6-m_thumb_le\lib\gcc\arm-none-eabi\11.2.0\libgcc.a(_fixunssfsi.o)
+ .debug_info    0x0000000000025bad      0x3c1 C:\toolchain\armv6-m_thumb_le\lib\gcc\arm-none-eabi\11.2.0\libgcc.a(_udivmoddi4.o)
+ .debug_info    0x0000000000025f6e      0x34a C:\toolchain\armv6-m_thumb_le\lib\gcc\arm-none-eabi\11.2.0\libgcc.a(divsf3.o)
+ .debug_info    0x00000000000262b8      0x203 C:\toolchain\armv6-m_thumb_le\lib\gcc\arm-none-eabi\11.2.0\libgcc.a(eqsf2.o)
+ .debug_info    0x00000000000264bb      0x231 C:\toolchain\armv6-m_thumb_le\lib\gcc\arm-none-eabi\11.2.0\libgcc.a(gesf2.o)
+ .debug_info    0x00000000000266ec      0x231 C:\toolchain\armv6-m_thumb_le\lib\gcc\arm-none-eabi\11.2.0\libgcc.a(lesf2.o)
+ .debug_info    0x000000000002691d      0x3bf C:\toolchain\armv6-m_thumb_le\lib\gcc\arm-none-eabi\11.2.0\libgcc.a(mulsf3.o)
+ .debug_info    0x0000000000026cdc      0x328 C:\toolchain\armv6-m_thumb_le\lib\gcc\arm-none-eabi\11.2.0\libgcc.a(subsf3.o)
+ .debug_info    0x0000000000027004      0x1af C:\toolchain\armv6-m_thumb_le\lib\gcc\arm-none-eabi\11.2.0\libgcc.a(fixsfsi.o)
+ .debug_info    0x00000000000271b3      0x21c C:\toolchain\armv6-m_thumb_le\lib\gcc\arm-none-eabi\11.2.0\libgcc.a(floatunsisf.o)
+ .debug_info    0x00000000000273cf      0x5a1 C:\toolchain\armv6-m_thumb_le\lib\gcc\arm-none-eabi\11.2.0\libgcc.a(adddf3.o)
+ .debug_info    0x0000000000027970      0x7c6 C:\toolchain\armv6-m_thumb_le\lib\gcc\arm-none-eabi\11.2.0\libgcc.a(divdf3.o)
+ .debug_info    0x0000000000028136      0x233 C:\toolchain\armv6-m_thumb_le\lib\gcc\arm-none-eabi\11.2.0\libgcc.a(eqdf2.o)
+ .debug_info    0x0000000000028369      0x251 C:\toolchain\armv6-m_thumb_le\lib\gcc\arm-none-eabi\11.2.0\libgcc.a(gedf2.o)
+ .debug_info    0x00000000000285ba      0x251 C:\toolchain\armv6-m_thumb_le\lib\gcc\arm-none-eabi\11.2.0\libgcc.a(ledf2.o)
+ .debug_info    0x000000000002880b      0x7a4 C:\toolchain\armv6-m_thumb_le\lib\gcc\arm-none-eabi\11.2.0\libgcc.a(muldf3.o)
+ .debug_info    0x0000000000028faf      0x5a1 C:\toolchain\armv6-m_thumb_le\lib\gcc\arm-none-eabi\11.2.0\libgcc.a(subdf3.o)
+ .debug_info    0x0000000000029550      0x1cc C:\toolchain\armv6-m_thumb_le\lib\gcc\arm-none-eabi\11.2.0\libgcc.a(fixdfsi.o)
+ .debug_info    0x000000000002971c      0x28f C:\toolchain\armv6-m_thumb_le\lib\gcc\arm-none-eabi\11.2.0\libgcc.a(floatsidf.o)
+ .debug_info    0x00000000000299ab      0x284 C:\toolchain\armv6-m_thumb_le\lib\gcc\arm-none-eabi\11.2.0\libgcc.a(extendsfdf2.o)
+ .debug_info    0x0000000000029c2f      0x274 C:\toolchain\armv6-m_thumb_le\lib\gcc\arm-none-eabi\11.2.0\libgcc.a(truncdfsf2.o)
+ .debug_info    0x0000000000029ea3       0x24 C:\toolchain\armv6-m_thumb_le\lib\gcc\arm-none-eabi\11.2.0\libgcc.a(_thumb1_case_uqi.o)
+ .debug_info    0x0000000000029ec7       0x24 C:\toolchain\armv6-m_thumb_le\lib\gcc\arm-none-eabi\11.2.0\libgcc.a(_thumb1_case_uhi.o)
+ .debug_info    0x0000000000029eeb       0x24 C:\toolchain\armv6-m_thumb_le\lib\gcc\arm-none-eabi\11.2.0\libgcc.a(_lshrdi3.o)
+ .debug_info    0x0000000000029f0f       0x24 C:\toolchain\armv6-m_thumb_le\lib\gcc\arm-none-eabi\11.2.0\libgcc.a(_ashldi3.o)
+ .debug_info    0x0000000000029f33       0x24 C:\toolchain\armv6-m_thumb_le\lib\gcc\arm-none-eabi\11.2.0\libgcc.a(_clzsi2.o)
+ .debug_info    0x0000000000029f57       0x24 C:\toolchain\armv6-m_thumb_le\lib\gcc\arm-none-eabi\11.2.0\libgcc.a(_clzdi2.o)
 
 .debug_abbrev   0x0000000000000000     0x7510
  .debug_abbrev  0x0000000000000000       0x12 src\_agn\crsec.o
@@ -7319,7 +7318,6 @@ deInitADC                                         src\app\helper_functions.o
 delay                                             src\_agn\delay.o
                                                   src\app\test_systime.o
                                                   src\app\test_com.o
-                                                  src\app\main_alt.o
                                                   src\_loramac-node\_bind\utilities.o
                                                   src\_brd\eeprom.o
                                                   src\_brd\acc.o

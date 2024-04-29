@@ -118,6 +118,7 @@ static void mlme_req(LoRaMacStatus_t status, MlmeReq_t *req, TimerTime_t delay)
 static void join_req_cb(LmHandlerJoinParams_t *prm)
 {
 	if (prm->Status == LORAMAC_HANDLER_ERROR) {
+		__BKPT();
 		LmHandlerJoin();
 	} else {
 		assert(LmHandlerRequestClass(CLASS_A) == LORAMAC_HANDLER_SUCCESS);
@@ -205,7 +206,6 @@ void alt_main(void)
 		/* MAIN LOOP */
 		/* DETERMINATION OF ENERGY STATUS */
 		lora_init_complet(&lmh_cb, &lmh_prm, mib_req, chan_prm);
-		delay(50000000);
 		assert(!initADC());
 		stateOfCharge = getEnergy();
 
