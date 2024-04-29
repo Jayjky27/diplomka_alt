@@ -5,11 +5,11 @@ Breakpoint=D:/skola/eclipse_workspace_alt/lorawan_stage/src/app/main_alt.c:239, 
 OpenDocument="main_alt.c", FilePath="D:/skola/eclipse_workspace_alt/lorawan_stage/src/app/main_alt.c", Line=226
 OpenDocument="crsec.s", FilePath="D:/skola/eclipse_workspace_alt/lorawan_stage/src/_agn/crsec.s", Line=8
 OpenDocument="main.c", FilePath="D:/skola/eclipse_workspace_alt/lorawan_stage/src/app/main.c", Line=11
-OpenDocument="LmHandler.c", FilePath="D:/skola/eclipse_workspace_alt/lorawan_stage/src/_loramac-node/lmhandler/LmHandler.c", Line=355
+OpenDocument="LmHandler.c", FilePath="D:/skola/eclipse_workspace_alt/lorawan_stage/src/_loramac-node/lmhandler/LmHandler.c", Line=485
 OpenDocument="test_radio.c", FilePath="D:/skola/eclipse_workspace_alt/lorawan_stage/src/app/test_radio.c", Line=0
 OpenDocument="startup.s", FilePath="D:/skola/eclipse_workspace_alt/lorawan_stage/src/_agn/startup.s", Line=12
 OpenDocument="utilities.c", FilePath="D:/skola/eclipse_workspace_alt/lorawan_stage/src/_loramac-node/_bind/utilities.c", Line=41
-OpenDocument="helper_functions.c", FilePath="D:/skola/eclipse_workspace_alt/lorawan_stage/src/app/helper_functions.c", Line=170
+OpenDocument="helper_functions.c", FilePath="D:/skola/eclipse_workspace_alt/lorawan_stage/src/app/helper_functions.c", Line=26
 OpenDocument="LoRaMac.c", FilePath="D:/skola/eclipse_workspace_alt/lorawan_stage/src/_loramac-node/mac/LoRaMac.c", Line=1676
 OpenDocument="sx126x-board.c", FilePath="D:/skola/eclipse_workspace_alt/lorawan_stage/src/_loramac-node/_bind/sx126x-board.c", Line=165
 OpenDocument="radio.c", FilePath="D:/skola/eclipse_workspace_alt/lorawan_stage/src/_loramac-node/radio/radio.c", Line=1336
