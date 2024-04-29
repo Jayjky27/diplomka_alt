@@ -213,7 +213,10 @@ void updateQ(float Qtable[NUM_STATES][NUM_ACTIONS], int state, int action, float
     		maxValue = i;
     	}
     }
-    Qtable[state][action] = Qtable[state][action] + ALPHA * (reward + GAMMA*Qtable[nextState][maxValue] - Qtable[state][action]);
+    float oldQValue = Qtable[state][action];
+	float newQValue = oldQValue + ALPHA * (reward + GAMMA * Qtable[nextState][maxValue] - oldQValue);
+	Qtable[state][action] = newQValue;
+    //Qtable[state][action] = Qtable[state][action] + ALPHA * (reward + GAMMA*Qtable[nextState][maxValue] - Qtable[state][action]);
 }
 
 float getTemp(void)

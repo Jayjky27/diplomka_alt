@@ -22,8 +22,8 @@
 #define GAMMA				0.9 // Discount rate
 #define MAX_ITTERATION		1000
 #define EPSILON				10 // Explorace 10%
-#define ACTION_WEIGHT		0.3
-#define STATE_WEIGHT 		0.6
+#define ACTION_WEIGHT		0.2
+#define STATE_WEIGHT 		0.8
 #define EPOCHS				10 // Number of epochs
 #define VTEMP25				701.2
 #define VOLTAGE_MCU			2.5

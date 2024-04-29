@@ -250,9 +250,9 @@ void alt_main(void)
 		/* SELECTION OF ACTION */
 		action = selectAction(Qtable, currentState, epochsCnt, epsilon);
 
-		switch(action){
+		switch(0){
 			case 0:
-				valueLPTMR = SLEEP_20MIN;
+				valueLPTMR = SLEEP_TESTING;
 				break;
 
 			case 1:
