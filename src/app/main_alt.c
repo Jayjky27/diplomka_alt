@@ -204,6 +204,8 @@ void alt_main(void)
 	while(1){
 		/* MAIN LOOP */
 		/* DETERMINATION OF ENERGY STATUS */
+		lora_init_complet(&lmh_cb, &lmh_prm, mib_req, chan_prm);
+		delay(50000000);
 		assert(!initADC());
 		stateOfCharge = getEnergy();
 
@@ -227,13 +229,13 @@ void alt_main(void)
 			updateQ(Qtable, previousState, action, reward, currentState);
 		}
 
-		lora_init_complet(&lmh_cb, &lmh_prm, mib_req, chan_prm);
 
 		/* MEAS FUNCTION */
 		tempValue = getTemp();
 
 		/* Data preparation for sending */
 		dataPrep(tx_buf, tempValue);
+		tx_buf[4] = itterationCnt;
 
 		/* SEND FUNCTION */
 		if(!tx_busy && !LmHandlerIsBusy()) {
@@ -249,27 +251,27 @@ void alt_main(void)
 
 		switch(action){
 			case 0:
-				valueLPTMR = SLEEP_20MIN;
+				valueLPTMR = SLEEP_TESTING;
 				break;
 
 			case 1:
-				valueLPTMR = SLEEP_40MIN;
+				valueLPTMR = SLEEP_TESTING;
 				break;
 
 			case 2:
-				valueLPTMR = SLEEP_60MIN;
+				valueLPTMR = SLEEP_TESTING;
 				break;
 
 			case 3:
-				valueLPTMR = SLEEP_80MIN;
+				valueLPTMR = SLEEP_TESTING;
 				break;
 
 			case 4:
-				valueLPTMR = SLEEP_100MIN;
+				valueLPTMR = SLEEP_TESTING;
 				break;
 
 			case 5:
-				valueLPTMR = SLEEP_120MIN;
+				valueLPTMR = SLEEP_TESTING;
 				break;
 
 			default:
