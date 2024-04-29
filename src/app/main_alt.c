@@ -146,13 +146,6 @@ static void rx_cb(LmHandlerAppData_t *rx_data, LmHandlerRxParams_t *prm)
 static void class_change_cb(DeviceClass_t class)
 {
 	__BKPT();
-	/*
-	app_data.Buffer = NULL;
-	app_data.BufferSize = 0u;
-	app_data.Port = 0u;
-
-	assert(LmHandlerSend(&app_data, LORAMAC_HANDLER_UNCONFIRMED_MSG) == LORAMAC_HANDLER_SUCCESS);
-	*/
 }
 
 static void bcn_stat_chng_cb(LoRaMacHandlerBeaconParams_t *prm)
@@ -250,9 +243,9 @@ void alt_main(void)
 		/* SELECTION OF ACTION */
 		action = selectAction(Qtable, currentState, epochsCnt, epsilon);
 
-		switch(0){
+		switch(action){
 			case 0:
-				valueLPTMR = SLEEP_TESTING;
+				valueLPTMR = SLEEP_20MIN;
 				break;
 
 			case 1:

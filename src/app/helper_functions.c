@@ -46,7 +46,7 @@ int setVLPS(void)
   if (SMC->PMCTRL & SMC_PMCTRL_STOPA_MASK)
 	{
 	  	okFlag = 0;
-		return 1; // return 0 !!!!!
+		return 0; // return 0 !!!!! return 1 just for testing
 	}
 	else
 	{
@@ -207,7 +207,9 @@ int32_t selectAction(float Qtable[NUM_STATES][NUM_ACTIONS], int state, int curre
 }
 
 void updateQ(float Qtable[NUM_STATES][NUM_ACTIONS], int state, int action, float reward, int nextState) {
-    int maxValue = 0;
+    state--;
+    nextState--;
+	int maxValue = 0;
     for(int i = 1; i < NUM_ACTIONS; i++){
     	if(Qtable[nextState][i] > Qtable[nextState][maxValue]){
     		maxValue = i;
@@ -216,8 +218,7 @@ void updateQ(float Qtable[NUM_STATES][NUM_ACTIONS], int state, int action, float
     float oldQValue = Qtable[state][action];
 	float newQValue = oldQValue + ALPHA * (reward + GAMMA * Qtable[nextState][maxValue] - oldQValue);
 	Qtable[state][action] = newQValue;
-    //Qtable[state][action] = Qtable[state][action] + ALPHA * (reward + GAMMA*Qtable[nextState][maxValue] - Qtable[state][action]);
-}
+	}
 
 float getTemp(void)
 {
